@@ -1,4 +1,5 @@
 import 'package:firebase_core/firebase_core.dart';
+import 'package:maveshi/all_screens.dart';
 import 'package:maveshi/all_utils.dart';
 import 'package:maveshi/firebase_options.dart';
 
@@ -19,6 +20,8 @@ class MaveshiApp extends StatelessWidget {
       title: 'Maveshi',
       themeMode: ThemeMode.light,
       theme: AppTheme.buildTheme(),
+      routes: routes,
+      initialRoute: SplashScreen.routeName,
     );
   }
 }
