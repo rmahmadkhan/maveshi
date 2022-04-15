@@ -1,5 +1,5 @@
 import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter/material.dart';
+import 'package:maveshi/all_utils.dart';
 import 'package:maveshi/firebase_options.dart';
 
 void main() async {
@@ -15,8 +15,10 @@ class MaveshiApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Maveshi',
-      theme: ThemeData(primarySwatch: Colors.blue),
+      themeMode: ThemeMode.light,
+      theme: AppTheme.buildTheme(),
     );
   }
 }
