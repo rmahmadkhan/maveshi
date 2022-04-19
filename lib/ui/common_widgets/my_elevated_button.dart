@@ -1,5 +1,4 @@
 import 'package:maveshi/all_utils.dart';
-import 'package:maveshi/ui/common_widgets/my_text.dart';
 
 class MyElevatedButton extends StatelessWidget {
   final Function(BuildContext context) onTap;
