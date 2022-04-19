@@ -12,14 +12,16 @@ class BaseScaffold extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: appBar,
-      body: GestureDetector(
-        onTap: () {
-          final FocusScopeNode currentFocus = FocusScope.of(context);
-          if (!currentFocus.hasPrimaryFocus) currentFocus.unfocus();
-        },
-        child: body,
+    return SafeArea(
+      child: Scaffold(
+        appBar: appBar,
+        body: GestureDetector(
+          onTap: () {
+            final FocusScopeNode currentFocus = FocusScope.of(context);
+            if (!currentFocus.hasPrimaryFocus) currentFocus.unfocus();
+          },
+          child: body,
+        ),
       ),
     );
   }
