@@ -1,4 +1,4 @@
-package dev.ahmadkhan.maveshi.maveshi
+package dev.ahmadkhan.maveshi
 
 import io.flutter.embedding.android.FlutterActivity
 
