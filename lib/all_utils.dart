@@ -1,3 +1,10 @@
 export 'package:flutter/material.dart';
 export 'package:maveshi/routes.dart';
 export 'package:maveshi/ui/app_theme.dart';
+export 'package:maveshi/ui/common_widgets/base_scaffold.dart';
+export 'package:maveshi/ui/common_widgets/horizontal_spacing.dart';
+export 'package:maveshi/ui/common_widgets/my_elevated_button.dart';
+export 'package:maveshi/ui/common_widgets/my_text.dart';
+export 'package:maveshi/ui/common_widgets/my_text_button.dart';
+export 'package:maveshi/ui/common_widgets/my_text_field.dart';
+export 'package:maveshi/ui/common_widgets/vertical_spacing.dart';
