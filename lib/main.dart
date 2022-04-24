@@ -21,7 +21,7 @@ class MaveshiApp extends StatelessWidget {
       themeMode: ThemeMode.light,
       theme: AppTheme.buildTheme(),
       routes: routes,
-      initialRoute: SplashScreen.routeName,
+      initialRoute: LoginScreen.routeName,
     );
   }
 }
