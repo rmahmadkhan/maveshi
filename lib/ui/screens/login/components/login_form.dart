@@ -1,4 +1,5 @@
 import 'package:maveshi/all_utils.dart';
+import 'package:maveshi/ui/screens/forgot_password/forgot_password_screen.dart';
 
 class LoginForm extends StatefulWidget {
   const LoginForm({Key? key}) : super(key: key);
@@ -35,7 +36,11 @@ class _LoginFormState extends State<LoginForm> {
         ),
         Align(
           alignment: Alignment.centerRight,
-          child: MyTextButton(onTap: (_) {}, title: 'Forgot Password?'),
+          child: MyTextButton(
+            onTap: (_) =>
+                Navigator.pushNamed(context, ForgotPasswordScreen.routeName),
+            title: 'Forgot Password?',
+          ),
         ),
         MyElevatedButton('Login', onTap: (_) {}),
       ],
