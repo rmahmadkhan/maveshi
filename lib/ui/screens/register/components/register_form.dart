@@ -1,3 +1,4 @@
+import 'package:maveshi/all_screens.dart';
 import 'package:maveshi/all_utils.dart';
 
 class RegisterForm extends StatefulWidget {
@@ -46,7 +47,10 @@ class _RegisterFormState extends State<RegisterForm> {
           obscure: true,
         ),
         const VerticalSpacing(),
-        MyElevatedButton('Register', onTap: (_) {}),
+        MyElevatedButton(
+          'Register',
+          onTap: (_) => Navigator.pushNamed(context, SetupFarmScreen.routeName),
+        ),
       ],
     );
   }
