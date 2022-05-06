@@ -1,4 +1,5 @@
 export 'package:flutter/material.dart';
+export 'package:font_awesome_flutter/font_awesome_flutter.dart';
 export 'package:maveshi/routes.dart';
 export 'package:maveshi/ui/app_theme.dart';
 export 'package:maveshi/ui/common_widgets/base_scaffold.dart';

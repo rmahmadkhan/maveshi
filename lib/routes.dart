@@ -7,4 +7,9 @@ final Map<String, WidgetBuilder> routes = {
   RegisterScreen.routeName: (context) => const RegisterScreen(),
   ForgotPasswordScreen.routeName: (context) => const ForgotPasswordScreen(),
   SetupFarmScreen.routeName: (context) => const SetupFarmScreen(),
+  TabScreen.routeName: (context) => const TabScreen(),
+  HomeScreen.routeName: (context) => const HomeScreen(),
+  MilkReportScreen.routeName: (context) => const MilkReportScreen(),
+  FinanceReportScreen.routeName: (context) => const FinanceReportScreen(),
+  SettingsScreen.routeName: (context) => const SettingsScreen(),
 };

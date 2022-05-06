@@ -1,5 +1,10 @@
+export 'package:maveshi/ui/screens/finance_report/finance_report_screen.dart';
 export 'package:maveshi/ui/screens/forgot_password/forgot_password_screen.dart';
+export 'package:maveshi/ui/screens/home/home_screen.dart';
 export 'package:maveshi/ui/screens/login/login_screen.dart';
+export 'package:maveshi/ui/screens/milk_report/milk_report_screen.dart';
 export 'package:maveshi/ui/screens/register/register_screen.dart';
+export 'package:maveshi/ui/screens/settings/settings_screen.dart';
 export 'package:maveshi/ui/screens/setup_farm/setup_farm_screen.dart';
 export 'package:maveshi/ui/screens/splash/splash_screen.dart';
+export 'package:maveshi/ui/screens/tab/tab_screen.dart';
