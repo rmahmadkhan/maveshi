@@ -1,7 +1,7 @@
 import 'package:maveshi/all_utils.dart';
 import 'package:maveshi/models/enums/animal_type.dart';
 import 'package:maveshi/ui/common_widgets/my_dropdown.dart';
-import 'package:maveshi/ui/screens/home/animal_count_card.dart';
+import 'package:maveshi/ui/screens/home/components/animal_count_card.dart';
 
 class FarmDetails extends StatefulWidget {
   const FarmDetails({Key? key}) : super(key: key);
