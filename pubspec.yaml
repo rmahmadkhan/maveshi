@@ -12,6 +12,8 @@ dependencies:
   flutter:
     sdk: flutter
   cupertino_icons: ^1.0.4
+  font_awesome_flutter: ^10.1.0
+  hawk_fab_menu: ^1.1.2
   bloc: ^8.0.3
   flutter_bloc: ^8.0.1
   firebase_core: ^1.14.1
@@ -33,3 +35,4 @@ flutter:
   assets:
     - assets/
     - assets/icons/
+    - assets/images/
