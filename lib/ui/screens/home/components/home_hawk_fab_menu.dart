@@ -1,4 +1,5 @@
 import 'package:hawk_fab_menu/hawk_fab_menu.dart';
+import 'package:maveshi/all_screens.dart';
 import 'package:maveshi/all_utils.dart';
 
 class HomeHawkFABMenu extends StatelessWidget {
@@ -15,12 +16,7 @@ class HomeHawkFABMenu extends StatelessWidget {
       items: [
         HawkFabMenuItem(
           label: 'Add Animal',
-          ontap: () {
-            ScaffoldMessenger.of(context).hideCurrentSnackBar();
-            ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(content: Text('Animal added!')),
-            );
-          },
+          ontap: () => Navigator.pushNamed(context, AddAnimalScreen.routeName),
           icon: const Icon(Icons.pets),
           color: AppTheme.camelColor,
           labelColor: AppTheme.navyBlueColor,
