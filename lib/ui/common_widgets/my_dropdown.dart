@@ -4,11 +4,13 @@ class MyDropdown extends StatefulWidget {
   final TextEditingController controller;
   final List<String> list;
   final String hint;
+  final String? caption;
 
   const MyDropdown({
     required this.controller,
     required this.list,
     required this.hint,
+    this.caption,
     Key? key,
   }) : super(key: key);
 
@@ -20,11 +22,19 @@ class _MyDropdownState extends State<MyDropdown> {
   String? _selectedValue;
 
   @override
+  void initState() {
+    super.initState();
+    if (widget.controller.text.isNotEmpty) {
+      _selectedValue = widget.controller.text;
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 55,
+    final dropdown = Container(
+      height: 48,
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10),
+        borderRadius: BorderRadius.circular(5),
         border:
             Border.all(style: BorderStyle.solid, color: AppTheme.navyBlueColor),
       ),
@@ -44,12 +54,16 @@ class _MyDropdownState extends State<MyDropdown> {
                       widget.list.map<DropdownMenuItem<String>>((String value) {
                     return DropdownMenuItem<String>(
                       value: value,
-                      child: MyText(value),
+                      child: MyText(
+                        value,
+                        color: AppTheme.navyBlueColor,
+                        fontSize: 16,
+                      ),
                     );
                   }).toList(),
                   hint: MyText(
                     widget.hint,
-                    fontSize: 15,
+                    fontSize: 16,
                     color: AppTheme.lightNavyBlueColor,
                   ),
                   onChanged: (String? value) {
@@ -66,5 +80,23 @@ class _MyDropdownState extends State<MyDropdown> {
         ),
       )),
     );
+
+    if (widget.caption != null) {
+      return Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          MyText(
+            widget.caption!,
+            fontSize: 18,
+            fontWeight: FontWeight.bold,
+            color: AppTheme.navyBlueColor,
+          ),
+          const VerticalSpacing(of: 10),
+          dropdown,
+        ],
+      );
+    } else {
+      return dropdown;
+    }
   }
 }
