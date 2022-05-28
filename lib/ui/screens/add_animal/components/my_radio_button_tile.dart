@@ -21,7 +21,7 @@ class _MyRadioButtonTileState extends State<MyRadioButtonTile> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 55,
+      height: 48,
       padding: const EdgeInsets.fromLTRB(10, 10, 5, 10),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(5),

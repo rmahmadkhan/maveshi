@@ -41,6 +41,11 @@ class MyTextField extends StatelessWidget {
         return null;
       },
       keyboardType: keyboardType,
+      style: const TextStyle(
+        fontSize: 16,
+        color: AppTheme.navyBlueColor,
+        fontWeight: FontWeight.w500,
+      ),
       decoration: InputDecoration(
         prefixIcon: prefixWidget == null
             ? null
@@ -65,11 +70,11 @@ class MyTextField extends StatelessWidget {
         hintText: hintText,
         fillColor: AppTheme.navyBlueColor,
         hintStyle: const TextStyle(
-          fontSize: 14,
+          fontSize: 16,
           color: AppTheme.lightNavyBlueColor,
-          fontWeight: FontWeight.w600,
+          fontWeight: FontWeight.normal,
         ),
-        // isDense: true,
+        isDense: true,
       ),
     );
 
