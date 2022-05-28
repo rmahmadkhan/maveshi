@@ -12,4 +12,5 @@ final Map<String, WidgetBuilder> routes = {
   MilkReportScreen.routeName: (context) => const MilkReportScreen(),
   FinanceReportScreen.routeName: (context) => const FinanceReportScreen(),
   SettingsScreen.routeName: (context) => const SettingsScreen(),
+  AddAnimalScreen.routeName: (context) => const AddAnimalScreen(),
 };
