@@ -1,10 +1,11 @@
 import 'package:maveshi/all_utils.dart';
 
 class MyTextField extends StatelessWidget {
-  final TextInputType keyboardType;
   final TextEditingController controller;
-  final bool obscure;
   final String? hintText;
+  final String? caption;
+  final TextInputType keyboardType;
+  final bool obscure;
   final bool enabled;
   final bool readOnly;
   final Widget? prefixWidget;
@@ -14,6 +15,7 @@ class MyTextField extends StatelessWidget {
   const MyTextField({
     required this.controller,
     this.hintText,
+    this.caption,
     this.keyboardType = TextInputType.text,
     this.obscure = false,
     this.enabled = true,
@@ -26,7 +28,7 @@ class MyTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TextFormField(
+    final textField = TextFormField(
       obscureText: obscure,
       controller: controller,
       maxLines: maxLines,
@@ -39,6 +41,11 @@ class MyTextField extends StatelessWidget {
         return null;
       },
       keyboardType: keyboardType,
+      style: const TextStyle(
+        fontSize: 16,
+        color: AppTheme.navyBlueColor,
+        fontWeight: FontWeight.w500,
+      ),
       decoration: InputDecoration(
         prefixIcon: prefixWidget == null
             ? null
@@ -53,22 +60,40 @@ class MyTextField extends StatelessWidget {
                 child: suffixWidget,
               ),
         focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10),
+          borderRadius: BorderRadius.circular(5),
           borderSide: const BorderSide(color: AppTheme.orangeColor),
         ),
         enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10),
+          borderRadius: BorderRadius.circular(5),
           borderSide: const BorderSide(color: AppTheme.navyBlueColor),
         ),
         hintText: hintText,
         fillColor: AppTheme.navyBlueColor,
         hintStyle: const TextStyle(
-          fontSize: 14,
+          fontSize: 16,
           color: AppTheme.lightNavyBlueColor,
-          fontWeight: FontWeight.w600,
+          fontWeight: FontWeight.normal,
         ),
-        // isDense: true,
+        isDense: true,
       ),
     );
+
+    if (caption != null) {
+      return Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          MyText(
+            caption!,
+            fontSize: 18,
+            fontWeight: FontWeight.bold,
+            color: AppTheme.navyBlueColor,
+          ),
+          const VerticalSpacing(of: 10),
+          textField,
+        ],
+      );
+    } else {
+      return textField;
+    }
   }
 }

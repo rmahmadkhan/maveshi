@@ -31,7 +31,7 @@ class MyElevatedButton extends StatelessWidget {
           style: ElevatedButton.styleFrom(
               primary: color,
               shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10))),
+                  borderRadius: BorderRadius.circular(5))),
           child: FittedBox(
             fit: BoxFit.scaleDown,
             child: MyText(
