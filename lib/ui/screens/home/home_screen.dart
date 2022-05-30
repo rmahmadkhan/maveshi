@@ -36,6 +36,7 @@ class HomeScreen extends StatelessWidget {
                       fontSize: 30,
                       fontWeight: FontWeight.w500,
                       color: AppTheme.whiteColor,
+                      textAlign: TextAlign.center,
                     ),
                     const VerticalSpacing(),
                     Row(

@@ -31,7 +31,7 @@ class AnimalCountCard extends StatelessWidget {
                 fontSize: 16,
                 fontWeight: FontWeight.w500,
               ),
-              Image.asset('assets/images/${animal.value.toLowerCase()}.png'),
+              Image.asset('assets/icons/${animal.value.toLowerCase()}.png'),
             ],
           ),
         ),
