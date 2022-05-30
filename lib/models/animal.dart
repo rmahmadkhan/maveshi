@@ -1,4 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
+import 'package:maveshi/models/animal_event.dart';
 import 'package:maveshi/models/enums/animal_obtained_by.dart';
 import 'package:maveshi/models/enums/animal_type.dart';
 import 'package:maveshi/models/enums/gender.dart';
@@ -25,6 +26,7 @@ class Animal {
   final String motherId;
   final String groupId;
   final String notes;
+  final List<AnimalEvent>? events;
 
   const Animal({
     required this.id,
@@ -45,6 +47,7 @@ class Animal {
     required this.motherId,
     required this.groupId,
     required this.notes,
+    this.events,
   });
 
   factory Animal.fromJson(Map<String, dynamic> json) => _$AnimalFromJson(json);
