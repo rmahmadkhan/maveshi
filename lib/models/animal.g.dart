@@ -11,6 +11,7 @@ Animal _$AnimalFromJson(Map<String, dynamic> json) => Animal(
       tag: json['tag'] as String,
       name: json['name'] as String,
       imagePath: json['imagePath'] as String,
+      type: $enumDecode(_$AnimalTypeEnumMap, json['type']),
       gender: $enumDecode(_$GenderEnumMap, json['gender']),
       breed: json['breed'] as String,
       dateOfBirth: DateTime.parse(json['dateOfBirth'] as String),
@@ -31,6 +32,7 @@ Map<String, dynamic> _$AnimalToJson(Animal instance) => <String, dynamic>{
       'tag': instance.tag,
       'name': instance.name,
       'imagePath': instance.imagePath,
+      'type': _$AnimalTypeEnumMap[instance.type],
       'gender': _$GenderEnumMap[instance.gender],
       'breed': instance.breed,
       'dateOfBirth': instance.dateOfBirth.toIso8601String(),
@@ -45,6 +47,13 @@ Map<String, dynamic> _$AnimalToJson(Animal instance) => <String, dynamic>{
       'groupId': instance.groupId,
       'notes': instance.notes,
     };
+
+const _$AnimalTypeEnumMap = {
+  AnimalType.cow: 'cow',
+  AnimalType.buffalo: 'buffalo',
+  AnimalType.goat: 'goat',
+  AnimalType.sheep: 'sheep',
+};
 
 const _$GenderEnumMap = {
   Gender.male: 'male',

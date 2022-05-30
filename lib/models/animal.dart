@@ -1,5 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'package:maveshi/models/enums/animal_obtained_by.dart';
+import 'package:maveshi/models/enums/animal_type.dart';
 import 'package:maveshi/models/enums/gender.dart';
 
 part 'animal.g.dart';
@@ -10,6 +11,7 @@ class Animal {
   final String tag;
   final String name;
   final String imagePath;
+  final AnimalType type;
   final Gender gender;
   final String breed;
   final DateTime dateOfBirth;
@@ -29,6 +31,7 @@ class Animal {
     required this.tag,
     required this.name,
     required this.imagePath,
+    required this.type,
     required this.gender,
     required this.breed,
     required this.dateOfBirth,
