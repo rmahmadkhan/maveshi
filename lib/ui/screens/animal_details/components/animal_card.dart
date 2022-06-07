@@ -1,6 +1,7 @@
 import 'package:maveshi/all_utils.dart';
 import 'package:maveshi/models/animal.dart';
 import 'package:maveshi/ui/common_widgets/my_card.dart';
+import 'package:maveshi/ui/screens/animal_details/components/animal_image.dart';
 import 'package:maveshi/ui/screens/animal_details/components/title_value_text.dart';
 
 class AnimalCard extends StatelessWidget {
@@ -17,15 +18,7 @@ class AnimalCard extends StatelessWidget {
         padding: const EdgeInsets.all(10),
         child: Row(
           children: [
-            Container(
-              height: height,
-              width: height,
-              decoration: const BoxDecoration(
-                color: Color(0xffd8d8d8),
-                borderRadius: BorderRadius.all(Radius.circular(5)),
-              ),
-              child: _buildImage(),
-            ),
+            AnimalImage(animal.imagePath, height: 50),
             const HorizontalSpacing(),
             const TitleValueText(
               title: 'Tag:',
@@ -50,14 +43,5 @@ class AnimalCard extends StatelessWidget {
         ),
       ),
     );
-  }
-
-  Widget _buildImage() {
-    if (animal.imagePath.isEmpty) {
-      return const Icon(Icons.image_outlined,
-          color: AppTheme.lightNavyBlueColor, size: 30);
-    }
-
-    return FittedBox(fit: BoxFit.cover, child: Image.network(animal.imagePath));
   }
 }
