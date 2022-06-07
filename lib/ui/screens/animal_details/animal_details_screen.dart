@@ -3,6 +3,7 @@ import 'package:maveshi/ui/screens/animal_details/components/animal_children_det
 import 'package:maveshi/ui/screens/animal_details/components/animal_details_body.dart';
 import 'package:maveshi/ui/screens/animal_details/components/animal_events_body.dart';
 
+/// Takes [Animal] in navigator arguments
 class AnimalDetailsScreen extends StatelessWidget {
   static const routeName = '/AnimalDetailsScreen';
 
@@ -10,37 +11,7 @@ class AnimalDetailsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final animal = Animal(
-        id: '123',
-        tag: 'A-101',
-        name: 'Alpha',
-        imagePath: '',
-        type: AnimalType.cow,
-        gender: Gender.female,
-        breed: 'Australian',
-        dateOfBirth: DateTime.now(),
-        age: 0,
-        obtainedBy: AnimalObtainedBy.birth,
-        farmJoiningDate: DateTime.now(),
-        gotFrom: 'By Birth',
-        initialPrice: 50000,
-        currentPrice: 50000,
-        fatherId: 'fatherId',
-        motherId: 'motherId',
-        groupId: 'groupId',
-        notes: 'notes',
-        events: [
-          AnimalEvent(
-              event: AnimalEventType.milking,
-              dateTime: DateTime.now(),
-              supervisor: 'John',
-              notes: ''),
-          AnimalEvent(
-              event: AnimalEventType.inseminated,
-              dateTime: DateTime.now(),
-              supervisor: 'John',
-              notes: '')
-        ]);
+    final animal = ModalRoute.of(context)?.settings.arguments as Animal?;
 
     return BaseScaffold(
       appBar: AppBar(
@@ -54,25 +25,29 @@ class AnimalDetailsScreen extends StatelessWidget {
         centerTitle: true,
         elevation: 0,
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            AnimalImage(animal.imagePath,
-                height: 200, width: double.infinity, roundedCorners: false),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(20, 10, 20, 20),
+      body: animal == null
+          ? const Center(child: MyText('No animal details found'))
+          : SingleChildScrollView(
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  AnimalDetailsBody(animal),
-                  AnimalEventsBody(animal.events),
-                  AnimalChildrenDetails([animal, animal]),
+                  AnimalImage(animal.imagePath,
+                      height: 200,
+                      width: double.infinity,
+                      roundedCorners: false),
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(20, 10, 20, 20),
+                    child: Column(
+                      children: [
+                        AnimalDetailsBody(animal),
+                        AnimalEventsBody(animal.events),
+                        AnimalChildrenDetails([animal, animal]),
+                      ],
+                    ),
+                  ),
                 ],
               ),
             ),
-          ],
-        ),
-      ),
     );
   }
 }
