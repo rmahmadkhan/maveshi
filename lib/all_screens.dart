@@ -1,4 +1,5 @@
 export 'package:maveshi/ui/screens/add_animal/add_animal_screen.dart';
+export 'package:maveshi/ui/screens/animal_details/animal_details_screen.dart';
 export 'package:maveshi/ui/screens/finance_report/finance_report_screen.dart';
 export 'package:maveshi/ui/screens/forgot_password/forgot_password_screen.dart';
 export 'package:maveshi/ui/screens/home/home_screen.dart';

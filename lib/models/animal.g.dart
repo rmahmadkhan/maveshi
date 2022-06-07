@@ -11,6 +11,7 @@ Animal _$AnimalFromJson(Map<String, dynamic> json) => Animal(
       tag: json['tag'] as String,
       name: json['name'] as String,
       imagePath: json['imagePath'] as String,
+      type: $enumDecode(_$AnimalTypeEnumMap, json['type']),
       gender: $enumDecode(_$GenderEnumMap, json['gender']),
       breed: json['breed'] as String,
       dateOfBirth: DateTime.parse(json['dateOfBirth'] as String),
@@ -24,6 +25,9 @@ Animal _$AnimalFromJson(Map<String, dynamic> json) => Animal(
       motherId: json['motherId'] as String,
       groupId: json['groupId'] as String,
       notes: json['notes'] as String,
+      events: (json['events'] as List<dynamic>?)
+          ?.map((e) => AnimalEvent.fromJson(e as Map<String, dynamic>))
+          .toList(),
     );
 
 Map<String, dynamic> _$AnimalToJson(Animal instance) => <String, dynamic>{
@@ -31,6 +35,7 @@ Map<String, dynamic> _$AnimalToJson(Animal instance) => <String, dynamic>{
       'tag': instance.tag,
       'name': instance.name,
       'imagePath': instance.imagePath,
+      'type': _$AnimalTypeEnumMap[instance.type],
       'gender': _$GenderEnumMap[instance.gender],
       'breed': instance.breed,
       'dateOfBirth': instance.dateOfBirth.toIso8601String(),
@@ -44,7 +49,15 @@ Map<String, dynamic> _$AnimalToJson(Animal instance) => <String, dynamic>{
       'motherId': instance.motherId,
       'groupId': instance.groupId,
       'notes': instance.notes,
+      'events': instance.events?.map((e) => e.toJson()).toList(),
     };
+
+const _$AnimalTypeEnumMap = {
+  AnimalType.cow: 'cow',
+  AnimalType.buffalo: 'buffalo',
+  AnimalType.goat: 'goat',
+  AnimalType.sheep: 'sheep',
+};
 
 const _$GenderEnumMap = {
   Gender.male: 'male',

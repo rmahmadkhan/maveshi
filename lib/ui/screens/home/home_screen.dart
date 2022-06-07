@@ -1,5 +1,4 @@
 import 'package:maveshi/all_utils.dart';
-import 'package:maveshi/ui/common_widgets/my_card.dart';
 import 'package:maveshi/ui/screens/home/components/farm_details.dart';
 import 'package:maveshi/ui/screens/home/components/home_hawk_fab_menu.dart';
 
@@ -36,6 +35,7 @@ class HomeScreen extends StatelessWidget {
                       fontSize: 30,
                       fontWeight: FontWeight.w500,
                       color: AppTheme.whiteColor,
+                      textAlign: TextAlign.center,
                     ),
                     const VerticalSpacing(),
                     Row(

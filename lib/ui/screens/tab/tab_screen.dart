@@ -8,7 +8,7 @@ class TabScreen extends StatefulWidget {
   const TabScreen({Key? key}) : super(key: key);
 
   @override
-  _TabScreenState createState() => _TabScreenState();
+  State<TabScreen> createState() => _TabScreenState();
 }
 
 class _TabScreenState extends State<TabScreen> with WidgetsBindingObserver {

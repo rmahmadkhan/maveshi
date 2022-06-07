@@ -1,6 +1,4 @@
 import 'package:maveshi/all_utils.dart';
-import 'package:maveshi/models/enums/animal_type.dart';
-import 'package:maveshi/ui/common_widgets/my_card.dart';
 
 class AnimalCountCard extends StatelessWidget {
   final AnimalType animal;
@@ -31,7 +29,7 @@ class AnimalCountCard extends StatelessWidget {
                 fontSize: 16,
                 fontWeight: FontWeight.w500,
               ),
-              Image.asset('assets/images/${animal.value.toLowerCase()}.png'),
+              Image.asset('assets/icons/${animal.value.toLowerCase()}.png'),
             ],
           ),
         ),

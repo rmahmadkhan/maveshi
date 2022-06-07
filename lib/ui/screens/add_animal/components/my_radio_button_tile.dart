@@ -1,5 +1,4 @@
 import 'package:maveshi/all_utils.dart';
-import 'package:maveshi/models/enums/gender.dart';
 
 class MyRadioButtonTile extends StatefulWidget {
   final Gender value;

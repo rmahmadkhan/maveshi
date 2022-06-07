@@ -1,5 +1,4 @@
 import 'package:maveshi/all_utils.dart';
-import 'package:maveshi/ui/common_widgets/my_dropdown.dart';
 
 class SetupFarmForm extends StatefulWidget {
   const SetupFarmForm({Key? key}) : super(key: key);
