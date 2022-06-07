@@ -1,14 +1,7 @@
 import 'package:maveshi/all_utils.dart';
-import 'package:maveshi/models/animal.dart';
-import 'package:maveshi/models/animal_event.dart';
-import 'package:maveshi/models/enums/animal_event_type.dart';
-import 'package:maveshi/models/enums/animal_obtained_by.dart';
-import 'package:maveshi/models/enums/animal_type.dart';
-import 'package:maveshi/models/enums/gender.dart';
 import 'package:maveshi/ui/screens/animal_details/components/animal_children_details.dart';
 import 'package:maveshi/ui/screens/animal_details/components/animal_details_body.dart';
 import 'package:maveshi/ui/screens/animal_details/components/animal_events_body.dart';
-import 'package:maveshi/ui/screens/animal_details/components/animal_image.dart';
 
 class AnimalDetailsScreen extends StatelessWidget {
   static const routeName = '/AnimalDetailsScreen';

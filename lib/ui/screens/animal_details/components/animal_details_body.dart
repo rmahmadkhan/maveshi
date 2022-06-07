@@ -1,10 +1,5 @@
 import 'package:intl/intl.dart';
 import 'package:maveshi/all_utils.dart';
-import 'package:maveshi/models/animal.dart';
-import 'package:maveshi/models/enums/animal_obtained_by.dart';
-import 'package:maveshi/models/enums/animal_type.dart';
-import 'package:maveshi/models/enums/gender.dart';
-import 'package:maveshi/ui/common_widgets/my_card.dart';
 import 'package:maveshi/ui/screens/animal_details/components/title_value_text.dart';
 
 class AnimalDetailsBody extends StatelessWidget {

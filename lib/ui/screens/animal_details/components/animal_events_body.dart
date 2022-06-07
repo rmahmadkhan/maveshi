@@ -1,8 +1,5 @@
 import 'package:intl/intl.dart';
 import 'package:maveshi/all_utils.dart';
-import 'package:maveshi/models/animal_event.dart';
-import 'package:maveshi/models/enums/animal_event_type.dart';
-import 'package:maveshi/ui/common_widgets/my_card.dart';
 
 class AnimalEventsBody extends StatelessWidget {
   final List<AnimalEvent>? events;

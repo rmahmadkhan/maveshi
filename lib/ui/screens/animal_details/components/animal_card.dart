@@ -1,7 +1,4 @@
 import 'package:maveshi/all_utils.dart';
-import 'package:maveshi/models/animal.dart';
-import 'package:maveshi/ui/common_widgets/my_card.dart';
-import 'package:maveshi/ui/screens/animal_details/components/animal_image.dart';
 import 'package:maveshi/ui/screens/animal_details/components/title_value_text.dart';
 
 class AnimalCard extends StatelessWidget {

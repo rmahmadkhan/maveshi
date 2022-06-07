@@ -1,9 +1,6 @@
 import 'dart:io';
 
 import 'package:maveshi/all_utils.dart';
-import 'package:maveshi/models/enums/animal_obtained_by.dart';
-import 'package:maveshi/models/enums/gender.dart';
-import 'package:maveshi/ui/common_widgets/my_dropdown.dart';
 import 'package:maveshi/ui/screens/add_animal/components/date_picker.dart';
 import 'package:maveshi/ui/screens/add_animal/components/image_uploader.dart';
 import 'package:maveshi/ui/screens/add_animal/components/my_radio_button_tile.dart';

@@ -1,6 +1,4 @@
 import 'package:maveshi/all_utils.dart';
-import 'package:maveshi/models/enums/animal_type.dart';
-import 'package:maveshi/ui/common_widgets/my_dropdown.dart';
 import 'package:maveshi/ui/screens/animal_details/animal_details_screen.dart';
 import 'package:maveshi/ui/screens/home/components/animal_count_card.dart';
 

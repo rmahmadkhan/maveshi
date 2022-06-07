@@ -1,5 +1,4 @@
 import 'package:maveshi/all_utils.dart';
-import 'package:maveshi/models/animal.dart';
 import 'package:maveshi/ui/screens/animal_details/components/animal_card.dart';
 
 class AnimalChildrenDetails extends StatelessWidget {
