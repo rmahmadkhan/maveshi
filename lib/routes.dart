@@ -14,4 +14,5 @@ final Map<String, WidgetBuilder> routes = {
   SettingsScreen.routeName: (context) => const SettingsScreen(),
   AddAnimalScreen.routeName: (context) => const AddAnimalScreen(),
   AnimalDetailsScreen.routeName: (context) => const AnimalDetailsScreen(),
+  GroupViewScreen.routeName: (context) => const GroupViewScreen(),
 };
