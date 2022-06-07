@@ -1,5 +1,6 @@
+import 'package:maveshi/all_screens.dart';
 import 'package:maveshi/all_utils.dart';
-import 'package:maveshi/ui/screens/animal_details/animal_details_screen.dart';
+import 'package:maveshi/global.dart';
 import 'package:maveshi/ui/screens/home/components/animal_count_card.dart';
 
 class FarmDetails extends StatefulWidget {
@@ -68,9 +69,11 @@ class _FarmDetailsState extends State<FarmDetails> {
           ],
         ),
         const VerticalSpacing(),
-        MyElevatedButton('See All',
-            onTap: (_) =>
-                Navigator.pushNamed(context, AnimalDetailsScreen.routeName)),
+        MyElevatedButton(
+          'See All',
+          onTap: (_) => Navigator.pushNamed(context, GroupViewScreen.routeName,
+              arguments: group),
+        ),
       ],
     );
   }
