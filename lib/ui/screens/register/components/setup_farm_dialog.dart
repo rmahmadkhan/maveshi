@@ -52,6 +52,9 @@ class _SetupFarmDialogState extends State<SetupFarmDialog> {
   }
 
   void onTapUpdate(BuildContext context) {
+    final FocusScopeNode currentFocus = FocusScope.of(context);
+    if (!currentFocus.hasPrimaryFocus) currentFocus.unfocus();
+
     final farmName = nameController.text.trim();
     if (farmName.isEmpty) {
       EasyLoading.showError('Please enter a farm name.');
