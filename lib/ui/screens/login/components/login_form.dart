@@ -1,5 +1,7 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:maveshi/all_screens.dart';
 import 'package:maveshi/all_utils.dart';
+import 'package:maveshi/ui/screens/register/components/setup_farm_dialog.dart';
 
 class LoginForm extends StatefulWidget {
   const LoginForm({Key? key}) : super(key: key);
@@ -42,12 +44,56 @@ class _LoginFormState extends State<LoginForm> {
             title: 'Forgot Password?',
           ),
         ),
-        MyElevatedButton(
-          'Login',
-          onTap: (_) =>
-              Navigator.pushReplacementNamed(context, TabScreen.routeName),
-        ),
+        MyElevatedButton('Login', onTap: _onTapLogin),
       ],
     );
+  }
+
+  void _onTapLogin(BuildContext context) async {
+    final FocusScopeNode currentFocus = FocusScope.of(context);
+    if (!currentFocus.hasPrimaryFocus) currentFocus.unfocus();
+
+    if (emailController.text.contains('@') == false) {
+      EasyLoading.showError('Enter a valid email');
+      return;
+    }
+
+    try {
+      EasyLoading.show();
+      final userCredentials = await FirebaseAuth.instance
+          .signInWithEmailAndPassword(
+              email: emailController.text.trim(),
+              password: passwordController.text);
+
+      final email = userCredentials.user?.email;
+      if (email != null) {
+        final user = await userRepository.get(email);
+        if (user != null) {
+          prefs.setUser(user);
+          EasyLoading.dismiss();
+
+          if (user.farmId == null) {
+            showDialog(
+                context: context, builder: (_) => const SetupFarmDialog());
+          } else {
+            if (!mounted) return;
+            Navigator.popUntil(context, (route) => false);
+            Navigator.pushNamed(context, TabScreen.routeName);
+          }
+        }
+      } else {
+        EasyLoading.dismiss();
+        EasyLoading.showError('No user found for that email.');
+      }
+    } on FirebaseAuthException catch (e) {
+      EasyLoading.dismiss();
+      if (e.code == 'user-not-found') {
+        EasyLoading.showError('No user found for that email. Register now!');
+      } else if (e.code == 'wrong-password') {
+        EasyLoading.showError('Wrong password!');
+      } else {
+        EasyLoading.showError('Something bad occurred.\n$e');
+      }
+    }
   }
 }
