@@ -1,42 +1,85 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+import 'package:maveshi/all_screens.dart';
 import 'package:maveshi/all_utils.dart';
-import 'package:maveshi/ui/screens/login/components/social_login_button.dart';
+import 'package:maveshi/ui/screens/register/components/setup_farm_dialog.dart';
 
 class SocialLoginSection extends StatelessWidget {
   const SocialLoginSection({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: const [
-            Expanded(child: Divider(height: 1, color: AppTheme.navyBlueColor)),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 10),
-              child: MyText(
-                'or continue with',
-                color: AppTheme.greyColor,
-                fontSize: 16,
+    return GestureDetector(
+      onTap: () => _onTapGoogle(context),
+      child: SizedBox(
+        height: 60,
+        child: Card(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(5),
+          ),
+          elevation: 2,
+          shadowColor: AppTheme.lightNavyBlueColor,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              SizedBox(
+                height: 25,
+                child: Image.asset('assets/icons/google.png'),
               ),
-            ),
-            Expanded(child: Divider(height: 1, color: AppTheme.navyBlueColor)),
-          ],
+              const HorizontalSpacing(),
+              const MyText('Continue with Google', fontSize: 16),
+            ],
+          ),
         ),
-        const VerticalSpacing(),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: const [
-            SocialLoginButton(imageName: 'google', onTap: _onTapGoogle),
-            SocialLoginButton(imageName: 'facebook', onTap: _onTapFacebook),
-            SocialLoginButton(imageName: 'apple', onTap: _onTapApple),
-          ],
-        ),
-      ],
+      ),
     );
   }
 
-  static void _onTapGoogle(BuildContext context) {}
-  static void _onTapFacebook(BuildContext context) {}
-  static void _onTapApple(BuildContext context) {}
+  static void _onTapGoogle(BuildContext context) async {
+    try {
+      final googleSignIn = GoogleSignIn();
+      EasyLoading.show();
+
+      await googleSignIn.signOut();
+      final googleUser = await googleSignIn.signIn();
+
+      if (googleUser == null) {
+        EasyLoading.dismiss();
+        EasyLoading.showError('Unable to sign in with Google.');
+        return;
+      }
+
+      final googleAuth = await googleUser.authentication;
+      final credential = GoogleAuthProvider.credential(
+        accessToken: googleAuth.accessToken,
+        idToken: googleAuth.idToken,
+      );
+
+      await FirebaseAuth.instance.signInWithCredential(credential);
+
+      final dbUser = await userRepository.get(googleUser.email);
+
+      if (dbUser == null) {
+        final newUser = LocalUser(
+          name: googleUser.displayName,
+          email: googleUser.email,
+          imagePath: googleUser.photoUrl,
+        );
+        userRepository.add(newUser);
+        prefs.setUser(newUser);
+        EasyLoading.dismiss();
+
+        showDialog(context: context, builder: (_) => const SetupFarmDialog());
+      } else {
+        prefs.setUser(dbUser);
+        EasyLoading.dismiss();
+
+        Navigator.popUntil(context, (route) => false);
+        Navigator.pushNamed(context, TabScreen.routeName);
+      }
+    } on Exception catch (e) {
+      EasyLoading.dismiss();
+      EasyLoading.showError(e.toString());
+    }
+  }
 }
