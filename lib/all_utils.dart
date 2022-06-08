@@ -19,3 +19,4 @@ export 'package:maveshi/ui/common_widgets/my_text_button.dart';
 export 'package:maveshi/ui/common_widgets/my_text_field.dart';
 export 'package:maveshi/ui/common_widgets/vertical_spacing.dart';
 export 'package:maveshi/ui/screens/animal_details/components/animal_image.dart';
+export 'package:maveshi/utils/prefs.dart';
