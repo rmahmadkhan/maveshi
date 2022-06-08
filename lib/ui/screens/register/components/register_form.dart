@@ -55,6 +55,9 @@ class _RegisterFormState extends State<RegisterForm> {
   }
 
   void _onTapRegisterButton(BuildContext context) async {
+    final FocusScopeNode currentFocus = FocusScope.of(context);
+    if (!currentFocus.hasPrimaryFocus) currentFocus.unfocus();
+
     if (emailController.text.contains('@') == false) {
       EasyLoading.showError('Enter a valid email.');
     } else if (passwordController.text.isEmpty ||
