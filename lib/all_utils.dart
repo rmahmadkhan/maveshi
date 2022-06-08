@@ -6,6 +6,7 @@ export 'package:maveshi/models/enums/animal_event_type.dart';
 export 'package:maveshi/models/enums/animal_obtained_by.dart';
 export 'package:maveshi/models/enums/animal_type.dart';
 export 'package:maveshi/models/enums/gender.dart';
+export 'package:maveshi/models/local_user.dart';
 export 'package:maveshi/routes.dart';
 export 'package:maveshi/ui/app_theme.dart';
 export 'package:maveshi/ui/common_widgets/base_scaffold.dart';
