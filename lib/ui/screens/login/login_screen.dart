@@ -36,7 +36,6 @@ class LoginScreen extends StatelessWidget {
                   title: 'Register',
                 ),
               ),
-              const VerticalSpacing(),
               const SocialLoginSection(),
             ],
           ),
