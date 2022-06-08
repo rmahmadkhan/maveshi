@@ -9,7 +9,6 @@ part of 'local_user.dart';
 LocalUser _$LocalUserFromJson(Map<String, dynamic> json) => LocalUser(
       email: json['email'] as String,
       name: json['name'] as String?,
-      phone: json['phone'] as String?,
       imagePath: json['imagePath'] as String?,
       fcmToken: json['fcmToken'] as String?,
       farmId: json['farmId'] as String?,
@@ -18,7 +17,6 @@ LocalUser _$LocalUserFromJson(Map<String, dynamic> json) => LocalUser(
 Map<String, dynamic> _$LocalUserToJson(LocalUser instance) => <String, dynamic>{
       'email': instance.email,
       'name': instance.name,
-      'phone': instance.phone,
       'imagePath': instance.imagePath,
       'fcmToken': instance.fcmToken,
       'farmId': instance.farmId,
