@@ -25,7 +25,6 @@ class _AddAnimalScreenState extends State<AddAnimalScreen> {
   final breedController = TextEditingController();
   DateTime dateOfBirth = DateTime.now();
   void onDOBChangeCallback(DateTime date) => setState(() => dateOfBirth = date);
-  final ageController = TextEditingController();
   final obtainedByController = TextEditingController();
   DateTime farmJoiningDate = DateTime.now();
   void onJoiningDateChangeCallback(DateTime date) =>
@@ -49,7 +48,6 @@ class _AddAnimalScreenState extends State<AddAnimalScreen> {
     tagController.dispose();
     nameController.dispose();
     breedController.dispose();
-    ageController.dispose();
     gotFromController.dispose();
     initialPriceController.dispose();
     currentPriceController.dispose();
@@ -62,6 +60,25 @@ class _AddAnimalScreenState extends State<AddAnimalScreen> {
 
   @override
   Widget build(BuildContext context) {
+    /// In case of edit Animal
+    final animal = ModalRoute.of(context)?.settings.arguments as Animal?;
+    if (animal != null) {
+      tagController.text = animal.tag;
+      nameController.text = animal.name;
+      gender = animal.gender;
+      breedController.text = animal.breed;
+      dateOfBirth = animal.dateOfBirth;
+      obtainedByController.text = animal.obtainedBy.value;
+      farmJoiningDate = animal.farmJoiningDate;
+      gotFromController.text = animal.gotFrom;
+      initialPriceController.text = animal.initialPrice.toString();
+      currentPriceController.text = animal.currentPrice.toString();
+      // fatherIdController.text = animal.fatherId;
+      // motherIdController.text = animal.motherId;
+      // groupIdController.text = animal.groupId;
+      notesController.text = animal.notes;
+    }
+
     return BaseScaffold(
       appBar: AppBar(
         backgroundColor: AppTheme.whiteColor,
@@ -79,22 +96,22 @@ class _AddAnimalScreenState extends State<AddAnimalScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            ImageUploader(_imageUploaderCallback),
+            ImageUploader(_imageUploaderCallback, imagePath: animal?.imagePath),
             const VerticalSpacing(of: 10),
             MyTextField(
               controller: tagController,
-              caption: 'Tag*',
+              caption: 'Tag',
               hintText: 'A-101',
             ),
             const VerticalSpacing(of: 10),
             MyTextField(
               controller: nameController,
-              caption: 'Name*',
+              caption: 'Name',
               hintText: 'Alpha',
             ),
             const VerticalSpacing(of: 10),
             const MyText(
-              'Gender*',
+              'Gender',
               fontSize: 18,
               fontWeight: FontWeight.bold,
               color: AppTheme.navyBlueColor,
@@ -131,41 +148,34 @@ class _AddAnimalScreenState extends State<AddAnimalScreen> {
                 Expanded(
                   child: DatePicker(
                     onChanged: onDOBChangeCallback,
-                    caption: 'Date of Birth*',
+                    caption: 'Date of Birth',
                   ),
                 ),
                 const HorizontalSpacing(),
                 Expanded(
-                  child: MyTextField(
-                    controller: ageController,
-                    caption: 'Age',
-                    hintText: '0',
-                    keyboardType: TextInputType.number,
-                    suffixWidget: const MyText(
-                      'years',
-                      color: AppTheme.lightNavyBlueColor,
-                      fontSize: 16,
-                    ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const MyText(
+                        'Obtained By',
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        color: AppTheme.navyBlueColor,
+                      ),
+                      const VerticalSpacing(of: 10),
+                      MyDropdown(
+                        controller: obtainedByController,
+                        list: [
+                          AnimalObtainedBy.birth.value,
+                          AnimalObtainedBy.purchase.value,
+                          AnimalObtainedBy.gift.value,
+                        ],
+                        hint: 'Select',
+                      ),
+                    ],
                   ),
                 ),
               ],
-            ),
-            const VerticalSpacing(of: 10),
-            const MyText(
-              'Obtained By',
-              fontSize: 18,
-              fontWeight: FontWeight.bold,
-              color: AppTheme.navyBlueColor,
-            ),
-            const VerticalSpacing(of: 10),
-            MyDropdown(
-              controller: obtainedByController,
-              list: [
-                AnimalObtainedBy.birth.value,
-                AnimalObtainedBy.purchase.value,
-                AnimalObtainedBy.gift.value,
-              ],
-              hint: 'Select',
             ),
             const VerticalSpacing(of: 10),
             Row(
