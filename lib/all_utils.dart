@@ -1,5 +1,7 @@
 export 'package:flutter/material.dart';
+export 'package:flutter_easyloading/flutter_easyloading.dart';
 export 'package:font_awesome_flutter/font_awesome_flutter.dart';
+export 'package:maveshi/locator.dart';
 export 'package:maveshi/models/animal.dart';
 export 'package:maveshi/models/animal_event.dart';
 export 'package:maveshi/models/enums/animal_event_type.dart';
