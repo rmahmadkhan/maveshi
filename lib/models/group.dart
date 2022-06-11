@@ -5,10 +5,12 @@ part 'group.g.dart';
 
 @JsonSerializable(explicitToJson: true)
 class Group {
+  final String id;
   final String name;
   final List<Animal> animals;
 
   const Group({
+    required this.id,
     required this.name,
     required this.animals,
   });

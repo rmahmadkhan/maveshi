@@ -7,6 +7,7 @@ part of 'group.dart';
 // **************************************************************************
 
 Group _$GroupFromJson(Map<String, dynamic> json) => Group(
+      id: json['id'] as String,
       name: json['name'] as String,
       animals: (json['animals'] as List<dynamic>)
           .map((e) => Animal.fromJson(e as Map<String, dynamic>))
@@ -14,6 +15,7 @@ Group _$GroupFromJson(Map<String, dynamic> json) => Group(
     );
 
 Map<String, dynamic> _$GroupToJson(Group instance) => <String, dynamic>{
+      'id': instance.id,
       'name': instance.name,
       'animals': instance.animals.map((e) => e.toJson()).toList(),
     };
