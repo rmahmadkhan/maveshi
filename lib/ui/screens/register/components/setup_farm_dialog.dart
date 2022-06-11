@@ -1,5 +1,6 @@
 import 'package:maveshi/all_screens.dart';
 import 'package:maveshi/all_utils.dart';
+import 'package:maveshi/models/farm.dart';
 
 class SetupFarmDialog extends StatefulWidget {
   const SetupFarmDialog({Key? key}) : super(key: key);
@@ -10,10 +11,12 @@ class SetupFarmDialog extends StatefulWidget {
 
 class _SetupFarmDialogState extends State<SetupFarmDialog> {
   final nameController = TextEditingController();
+  final currencyController = TextEditingController();
 
   @override
   void dispose() {
     nameController.dispose();
+    currencyController.dispose();
     super.dispose();
   }
 
@@ -42,6 +45,12 @@ class _SetupFarmDialogState extends State<SetupFarmDialog> {
               ),
               const VerticalSpacing(),
               MyTextField(controller: nameController, hintText: 'Farm Name'),
+              const VerticalSpacing(of: 10),
+              MyDropdown(
+                controller: currencyController,
+                list: const ['\$', '£', 'Rs', '€', '﷼', '₹'],
+                hint: 'Select Currency',
+              ),
               const VerticalSpacing(),
               MyElevatedButton('Update', onTap: onTapUpdate),
             ],
@@ -70,6 +79,15 @@ class _SetupFarmDialogState extends State<SetupFarmDialog> {
       );
       userRepository.update(user.email, {'farmId': farmId});
       prefs.setUser(updatedUser);
+
+      final farm = Farm(
+        id: farmId,
+        name: farmName,
+        currency: currencyController.text,
+        owner: user.email,
+        animals: [],
+      );
+      farmRepository.add(farm);
 
       EasyLoading.dismiss();
       Navigator.popUntil(context, (route) => false);
