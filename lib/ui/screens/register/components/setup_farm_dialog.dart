@@ -88,6 +88,7 @@ class _SetupFarmDialogState extends State<SetupFarmDialog> {
         animals: [],
       );
       farmRepository.add(farm);
+      prefs.setFarm(farm);
 
       EasyLoading.dismiss();
       Navigator.popUntil(context, (route) => false);
