@@ -33,4 +33,4 @@ final animal = Animal(
           notes: '')
     ]);
 
-final group = Group(name: 'Group A', animals: [animal, animal]);
+final group = Group(id: 'Group A', name: 'Group A', animals: [animal, animal]);
