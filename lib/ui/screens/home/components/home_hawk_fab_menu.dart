@@ -21,18 +21,6 @@ class HomeHawkFABMenu extends StatelessWidget {
           color: AppTheme.camelColor,
           labelColor: AppTheme.navyBlueColor,
         ),
-        HawkFabMenuItem(
-          label: 'Add Group',
-          ontap: () {
-            ScaffoldMessenger.of(context).hideCurrentSnackBar();
-            ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(content: Text('Group added!')),
-            );
-          },
-          icon: const Icon(Icons.add_business_outlined),
-          color: AppTheme.camelColor,
-          labelColor: AppTheme.navyBlueColor,
-        ),
       ],
       body: body,
     );
