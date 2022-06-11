@@ -1,5 +1,4 @@
 import 'package:maveshi/all_utils.dart';
-import 'package:maveshi/models/group.dart';
 
 final animal = Animal(
     id: '123',
@@ -18,7 +17,6 @@ final animal = Animal(
     currentPrice: 50000,
     fatherId: 'fatherId',
     motherId: 'motherId',
-    groupId: 'groupId',
     notes: 'notes',
     events: [
       AnimalEvent(
@@ -33,4 +31,4 @@ final animal = Animal(
           notes: '')
     ]);
 
-final group = Group(id: 'Group A', name: 'Group A', animals: [animal, animal]);
+final animals = [animal, animal];

@@ -34,7 +34,6 @@ class _AddAnimalScreenState extends State<AddAnimalScreen> {
   final currentPriceController = TextEditingController();
   final fatherIdController = TextEditingController();
   final motherIdController = TextEditingController();
-  final groupIdController = TextEditingController();
   final notesController = TextEditingController();
 
   @override
@@ -53,7 +52,6 @@ class _AddAnimalScreenState extends State<AddAnimalScreen> {
     currentPriceController.dispose();
     fatherIdController.dispose();
     motherIdController.dispose();
-    groupIdController.dispose();
     notesController.dispose();
     super.dispose();
   }
@@ -75,7 +73,6 @@ class _AddAnimalScreenState extends State<AddAnimalScreen> {
       currentPriceController.text = animal.currentPrice.toString();
       // fatherIdController.text = animal.fatherId;
       // motherIdController.text = animal.motherId;
-      // groupIdController.text = animal.groupId;
       notesController.text = animal.notes;
     }
 
@@ -237,13 +234,6 @@ class _AddAnimalScreenState extends State<AddAnimalScreen> {
               list: const ['Aplha', 'Beta'],
               hint: 'Select',
               caption: 'Mother',
-            ),
-            const VerticalSpacing(of: 10),
-            MyDropdown(
-              controller: groupIdController,
-              list: const ['Aplha', 'Beta'],
-              hint: 'Select',
-              caption: 'Group',
             ),
             const VerticalSpacing(of: 10),
             MyTextField(

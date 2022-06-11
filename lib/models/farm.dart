@@ -1,5 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
-import 'package:maveshi/models/group.dart';
+import 'package:maveshi/all_utils.dart';
 
 part 'farm.g.dart';
 
@@ -9,14 +9,14 @@ class Farm {
   final String name;
   final String currency;
   final String owner;
-  final List<Group> groups;
+  final List<Animal> animals;
 
   const Farm({
     required this.id,
     required this.name,
     required this.currency,
     required this.owner,
-    required this.groups,
+    required this.animals,
   });
 
   factory Farm.fromJson(Map<String, dynamic> json) => _$FarmFromJson(json);

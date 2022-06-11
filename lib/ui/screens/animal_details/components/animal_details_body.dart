@@ -49,10 +49,10 @@ class AnimalDetailsBody extends StatelessWidget {
               children: [
                 Column(
                   children: const [
-                    MyText('Group', color: AppTheme.navyBlueColor),
+                    MyText('Animal', color: AppTheme.navyBlueColor),
                     VerticalSpacing(of: 5),
                     MyText(
-                      'Group A',
+                      'Cow',
                       color: AppTheme.maroonColor,
                       fontSize: 18,
                       fontWeight: FontWeight.bold,

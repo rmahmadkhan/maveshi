@@ -72,7 +72,7 @@ class _FarmDetailsState extends State<FarmDetails> {
         MyElevatedButton(
           'See All',
           onTap: (_) => Navigator.pushNamed(context, GroupViewScreen.routeName,
-              arguments: group),
+              arguments: animals),
         ),
       ],
     );

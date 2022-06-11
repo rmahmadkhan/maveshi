@@ -24,7 +24,6 @@ class Animal {
   final double currentPrice;
   final String fatherId;
   final String motherId;
-  final String groupId;
   final String notes;
   final List<AnimalEvent>? events;
 
@@ -45,7 +44,6 @@ class Animal {
     required this.currentPrice,
     required this.fatherId,
     required this.motherId,
-    required this.groupId,
     required this.notes,
     this.events,
   });
