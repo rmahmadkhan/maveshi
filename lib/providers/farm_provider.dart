@@ -43,4 +43,13 @@ class FarmProvider extends ChangeNotifier {
     }
     return list;
   }
+
+  static List<Animal> filterAnimalsOnGender(
+      List<Animal> animalList, Gender gender) {
+    final List<Animal> list = [];
+    for (Animal animal in animalList) {
+      if (animal.gender == gender) list.add(animal);
+    }
+    return list;
+  }
 }
