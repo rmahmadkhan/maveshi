@@ -18,6 +18,8 @@ class _LoadingDataWidgetState extends State<LoadingDataWidget> {
   void _moveToNextScreen(BuildContext context) async {
     final user = prefs.user;
     if (user == null) {
+      await Future.delayed(const Duration(seconds: 1));
+      if (!mounted) return;
       Navigator.pushReplacementNamed(context, LoginScreen.routeName);
     } else {
       await context.read<FarmProvider>().fetchFarmFromDatabase(user.farmId!);
