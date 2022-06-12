@@ -81,8 +81,8 @@ class _RegisterFormState extends State<RegisterForm> {
             name: nameController.text,
             email: emailController.text,
           );
-          userRepository.add(localUser);
-          prefs.setUser(localUser);
+          await userRepository.add(localUser);
+          await prefs.setUser(localUser);
 
           EasyLoading.dismiss();
 

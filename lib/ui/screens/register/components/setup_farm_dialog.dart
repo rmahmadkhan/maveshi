@@ -60,7 +60,7 @@ class _SetupFarmDialogState extends State<SetupFarmDialog> {
     );
   }
 
-  void onTapUpdate(BuildContext context) {
+  void onTapUpdate(BuildContext context) async {
     final FocusScopeNode currentFocus = FocusScope.of(context);
     if (!currentFocus.hasPrimaryFocus) currentFocus.unfocus();
 
@@ -77,8 +77,8 @@ class _SetupFarmDialogState extends State<SetupFarmDialog> {
         name: user.name,
         farmId: farmId,
       );
-      userRepository.update(user.email, {'farmId': farmId});
-      prefs.setUser(updatedUser);
+      await userRepository.update(user.email, {'farmId': farmId});
+      await prefs.setUser(updatedUser);
 
       final farm = Farm(
         id: farmId,
@@ -87,8 +87,8 @@ class _SetupFarmDialogState extends State<SetupFarmDialog> {
         owner: user.email,
         animals: [],
       );
-      farmRepository.add(farm);
-      prefs.setFarm(farm);
+      await farmRepository.add(farm);
+      await prefs.setFarm(farm);
 
       EasyLoading.dismiss();
       Navigator.popUntil(context, (route) => false);
