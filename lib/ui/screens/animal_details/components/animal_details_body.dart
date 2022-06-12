@@ -130,13 +130,15 @@ class AnimalDetailsBody extends StatelessWidget {
             Expanded(
               child: TitleValueText(
                 title: 'Initial Price',
-                value: animal.initialPrice.toStringAsFixed(1),
+                value:
+                    '${animal.initialPrice.toStringAsFixed(1)} ${prefs.farm?.currency ?? '\$'}',
               ),
             ),
             Expanded(
               child: TitleValueText(
                 title: 'Current Price',
-                value: animal.currentPrice.toStringAsFixed(1),
+                value:
+                    '${animal.currentPrice.toStringAsFixed(1)} ${prefs.farm?.currency ?? '\$'}',
               ),
             ),
           ],
