@@ -1,6 +1,5 @@
 import 'package:maveshi/all_screens.dart';
 import 'package:maveshi/all_utils.dart';
-import 'package:maveshi/models/farm.dart';
 
 class SetupFarmDialog extends StatefulWidget {
   const SetupFarmDialog({Key? key}) : super(key: key);
@@ -86,11 +85,13 @@ class _SetupFarmDialogState extends State<SetupFarmDialog> {
         currency: currencyController.text,
         owner: user.email,
         animals: [],
+        milkingDetails: [],
       );
       await farmRepository.add(farm);
       await prefs.setFarm(farm);
 
       EasyLoading.dismiss();
+      if (!mounted) return;
       Navigator.popUntil(context, (route) => false);
       Navigator.pushNamed(context, TabScreen.routeName);
     }

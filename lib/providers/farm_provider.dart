@@ -47,6 +47,16 @@ class FarmProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  Future<void> addMilking(Milk milk) async {
+    if (farm == null) return;
+
+    farm!.milkingDetails.add(milk);
+    await prefs.setFarm(farm!);
+    await farmRepository.add(farm!);
+    filterAll();
+    notifyListeners();
+  }
+
   void filterAll() {
     cows = filterAnimalsOnType(farm?.animals ?? [], AnimalType.cow);
     buffaloes = filterAnimalsOnType(farm?.animals ?? [], AnimalType.buffalo);

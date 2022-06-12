@@ -28,6 +28,7 @@ dependencies:
   shared_preferences: ^2.0.15
   flutter_easyloading: ^3.0.5
   get_it: ^7.2.0
+  syncfusion_flutter_charts: ^20.1.59
 
 dev_dependencies:
   flutter_test:

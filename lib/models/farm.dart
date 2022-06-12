@@ -10,6 +10,7 @@ class Farm {
   final String currency;
   final String owner;
   final List<Animal> animals;
+  final List<Milk> milkingDetails;
 
   const Farm({
     required this.id,
@@ -17,6 +18,7 @@ class Farm {
     required this.currency,
     required this.owner,
     required this.animals,
+    required this.milkingDetails,
   });
 
   factory Farm.fromJson(Map<String, dynamic> json) => _$FarmFromJson(json);

@@ -11,6 +11,7 @@ export 'package:maveshi/models/enums/animal_type.dart';
 export 'package:maveshi/models/enums/gender.dart';
 export 'package:maveshi/models/farm.dart';
 export 'package:maveshi/models/local_user.dart';
+export 'package:maveshi/models/milk.dart';
 export 'package:maveshi/providers/farm_provider.dart';
 export 'package:maveshi/routes.dart';
 export 'package:maveshi/ui/app_theme.dart';
