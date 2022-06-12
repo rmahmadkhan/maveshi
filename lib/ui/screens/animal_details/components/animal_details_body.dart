@@ -48,11 +48,11 @@ class AnimalDetailsBody extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 Column(
-                  children: const [
-                    MyText('Animal', color: AppTheme.navyBlueColor),
-                    VerticalSpacing(of: 5),
+                  children: [
+                    const MyText('Animal', color: AppTheme.navyBlueColor),
+                    const VerticalSpacing(of: 5),
                     MyText(
-                      'Cow',
+                      animal.type.value,
                       color: AppTheme.maroonColor,
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
