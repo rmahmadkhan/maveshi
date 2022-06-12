@@ -69,13 +69,20 @@ class _LoginFormState extends State<LoginForm> {
       if (email != null) {
         final user = await userRepository.get(email);
         if (user != null) {
-          prefs.setUser(user);
+          await prefs.setUser(user);
           EasyLoading.dismiss();
 
           if (user.farmId == null) {
             showDialog(
                 context: context, builder: (_) => const SetupFarmDialog());
           } else {
+            if (!mounted) return;
+            EasyLoading.show();
+            await context
+                .read<FarmProvider>()
+                .fetchFarmFromDatabase(user.farmId!);
+            EasyLoading.dismiss();
+
             if (!mounted) return;
             Navigator.popUntil(context, (route) => false);
             Navigator.pushNamed(context, TabScreen.routeName);
