@@ -17,14 +17,12 @@ class _TabScreenState extends State<TabScreen> with WidgetsBindingObserver {
   final List<Widget> tabWidgets = [
     const HomeScreen(),
     const MilkReportScreen(),
-    const FinanceReportScreen(),
     const SettingsScreen(),
   ];
 
   final List<String> appBarTitles = [
     'MAVESHI',
     'Milk Report',
-    'Finance Report',
     'Settings',
   ];
 
@@ -36,7 +34,7 @@ class _TabScreenState extends State<TabScreen> with WidgetsBindingObserver {
         title: MyText(appBarTitles[_selectedIndex], fontSize: 20),
         backgroundColor: AppTheme.whiteColor,
         iconTheme: const IconThemeData(color: AppTheme.navyBlueColor),
-        actions: _selectedIndex == 3
+        actions: _selectedIndex == 2
             ? [
                 IconButton(
                   onPressed: _onTapLogout,

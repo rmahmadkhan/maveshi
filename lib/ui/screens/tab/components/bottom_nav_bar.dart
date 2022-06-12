@@ -31,16 +31,10 @@ class BottomNavBar extends StatelessWidget {
                 selectedIndex == 1 ? AppTheme.orangeColor : AppTheme.greyColor,
           ),
           CustomIconButton(
-            icon: Icons.query_stats,
+            icon: Icons.settings,
             onTap: (_) => onItemTapped(2),
             color:
                 selectedIndex == 2 ? AppTheme.orangeColor : AppTheme.greyColor,
-          ),
-          CustomIconButton(
-            icon: Icons.settings,
-            onTap: (_) => onItemTapped(3),
-            color:
-                selectedIndex == 3 ? AppTheme.orangeColor : AppTheme.greyColor,
           )
         ],
       ),
