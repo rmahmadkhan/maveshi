@@ -25,7 +25,7 @@ class Animal {
   final String fatherId;
   final String motherId;
   final String notes;
-  final List<AnimalEvent>? events;
+  final List<AnimalEvent> events;
 
   const Animal({
     required this.id,
@@ -45,7 +45,7 @@ class Animal {
     required this.fatherId,
     required this.motherId,
     required this.notes,
-    this.events,
+    required this.events,
   });
 
   factory Animal.fromJson(Map<String, dynamic> json) => _$AnimalFromJson(json);
