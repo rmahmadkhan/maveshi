@@ -18,6 +18,12 @@ class MaveshiApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: 'Maveshi',
+      themeMode: ThemeMode.light,
+      theme: AppTheme.buildTheme(),
+      routes: routes,
+      initialRoute: SplashScreen.routeName,
       builder: (context, widget) => MultiProvider(
         providers: [
           ListenableProvider(create: (_) => FarmProvider()),
@@ -34,12 +40,6 @@ class MaveshiApp extends StatelessWidget {
         ),
         child: widget,
       ),
-      debugShowCheckedModeBanner: false,
-      title: 'Maveshi',
-      themeMode: ThemeMode.light,
-      theme: AppTheme.buildTheme(),
-      routes: routes,
-      initialRoute: LoginScreen.routeName,
     );
   }
 }
