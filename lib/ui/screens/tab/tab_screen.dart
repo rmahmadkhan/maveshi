@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:maveshi/all_screens.dart';
 import 'package:maveshi/all_utils.dart';
 import 'package:maveshi/ui/screens/tab/components/bottom_nav_bar.dart';
@@ -35,6 +36,14 @@ class _TabScreenState extends State<TabScreen> with WidgetsBindingObserver {
         title: MyText(appBarTitles[_selectedIndex], fontSize: 20),
         backgroundColor: AppTheme.whiteColor,
         iconTheme: const IconThemeData(color: AppTheme.navyBlueColor),
+        actions: _selectedIndex == 3
+            ? [
+                IconButton(
+                  onPressed: _onTapLogout,
+                  icon: const Icon(Icons.logout),
+                ),
+              ]
+            : null,
       ),
       body: SafeArea(
         top: false,
@@ -51,4 +60,34 @@ class _TabScreenState extends State<TabScreen> with WidgetsBindingObserver {
   }
 
   void _onItemTapped(int index) => setState(() => _selectedIndex = index);
+
+  void _onTapLogout() async {
+    showDialog(
+      context: context,
+      builder: (_) => AlertDialog(
+        title: const MyText(
+          'Do you want to logout?',
+          fontWeight: FontWeight.bold,
+        ),
+        actions: [
+          TextButton(
+              onPressed: () async {
+                EasyLoading.show();
+                await FirebaseAuth.instance.signOut();
+                prefs.removeUser();
+                prefs.removeFarm();
+                EasyLoading.dismiss();
+
+                if (!mounted) return;
+                Navigator.popUntil(context, (route) => false);
+                Navigator.pushNamed(context, LoginScreen.routeName);
+              },
+              child: const MyText('Logout', color: AppTheme.orangeColor)),
+          TextButton(
+              onPressed: () => Navigator.pop(context),
+              child: const MyText('Cancel')),
+        ],
+      ),
+    );
+  }
 }
