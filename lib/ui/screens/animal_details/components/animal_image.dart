@@ -34,6 +34,6 @@ class AnimalImage extends StatelessWidget {
           color: AppTheme.lightNavyBlueColor, size: height / 3);
     }
 
-    return FittedBox(fit: BoxFit.cover, child: Image.network(imagePath));
+    return FittedBox(fit: BoxFit.fill, child: Image.network(imagePath));
   }
 }

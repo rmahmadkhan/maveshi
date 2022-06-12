@@ -48,11 +48,11 @@ class AnimalDetailsBody extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 Column(
-                  children: const [
-                    MyText('Group', color: AppTheme.navyBlueColor),
-                    VerticalSpacing(of: 5),
+                  children: [
+                    const MyText('Animal', color: AppTheme.navyBlueColor),
+                    const VerticalSpacing(of: 5),
                     MyText(
-                      'Group A',
+                      animal.type.value,
                       color: AppTheme.maroonColor,
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
@@ -130,13 +130,15 @@ class AnimalDetailsBody extends StatelessWidget {
             Expanded(
               child: TitleValueText(
                 title: 'Initial Price',
-                value: animal.initialPrice.toStringAsFixed(1),
+                value:
+                    '${animal.initialPrice.toStringAsFixed(1)} ${prefs.farm?.currency ?? '\$'}',
               ),
             ),
             Expanded(
               child: TitleValueText(
                 title: 'Current Price',
-                value: animal.currentPrice.toStringAsFixed(1),
+                value:
+                    '${animal.currentPrice.toStringAsFixed(1)} ${prefs.farm?.currency ?? '\$'}',
               ),
             ),
           ],

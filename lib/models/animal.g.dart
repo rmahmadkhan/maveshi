@@ -23,10 +23,9 @@ Animal _$AnimalFromJson(Map<String, dynamic> json) => Animal(
       currentPrice: (json['currentPrice'] as num).toDouble(),
       fatherId: json['fatherId'] as String,
       motherId: json['motherId'] as String,
-      groupId: json['groupId'] as String,
       notes: json['notes'] as String,
-      events: (json['events'] as List<dynamic>?)
-          ?.map((e) => AnimalEvent.fromJson(e as Map<String, dynamic>))
+      events: (json['events'] as List<dynamic>)
+          .map((e) => AnimalEvent.fromJson(e as Map<String, dynamic>))
           .toList(),
     );
 
@@ -47,9 +46,8 @@ Map<String, dynamic> _$AnimalToJson(Animal instance) => <String, dynamic>{
       'currentPrice': instance.currentPrice,
       'fatherId': instance.fatherId,
       'motherId': instance.motherId,
-      'groupId': instance.groupId,
       'notes': instance.notes,
-      'events': instance.events?.map((e) => e.toJson()).toList(),
+      'events': instance.events.map((e) => e.toJson()).toList(),
     };
 
 const _$AnimalTypeEnumMap = {

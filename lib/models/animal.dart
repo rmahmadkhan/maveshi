@@ -24,9 +24,8 @@ class Animal {
   final double currentPrice;
   final String fatherId;
   final String motherId;
-  final String groupId;
   final String notes;
-  final List<AnimalEvent>? events;
+  final List<AnimalEvent> events;
 
   const Animal({
     required this.id,
@@ -45,9 +44,8 @@ class Animal {
     required this.currentPrice,
     required this.fatherId,
     required this.motherId,
-    required this.groupId,
     required this.notes,
-    this.events,
+    required this.events,
   });
 
   factory Animal.fromJson(Map<String, dynamic> json) => _$AnimalFromJson(json);

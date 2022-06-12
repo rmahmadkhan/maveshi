@@ -1,7 +1,6 @@
 import 'package:hawk_fab_menu/hawk_fab_menu.dart';
 import 'package:maveshi/all_screens.dart';
 import 'package:maveshi/all_utils.dart';
-import 'package:maveshi/ui/screens/animal_details/components/add_event_dialog.dart';
 import 'package:maveshi/ui/screens/animal_details/components/animal_children_details.dart';
 import 'package:maveshi/ui/screens/animal_details/components/animal_details_body.dart';
 import 'package:maveshi/ui/screens/animal_details/components/animal_events_body.dart';
@@ -31,7 +30,8 @@ class AnimalDetailsScreen extends StatelessWidget {
       body: animal == null
           ? const Center(child: MyText('No animal details found'))
           : HawkFabMenu(
-              icon: AnimatedIcons.menu_close,
+              openIcon: Icons.edit,
+              closeIcon: Icons.close,
               fabColor: AppTheme.orangeColor,
               iconColor: AppTheme.whiteColor,
               items: [
@@ -45,10 +45,39 @@ class AnimalDetailsScreen extends StatelessWidget {
                   labelColor: AppTheme.navyBlueColor,
                 ),
                 HawkFabMenuItem(
-                  label: 'Add Event',
-                  ontap: () => showDialog(
-                      context: context, builder: (_) => const AddEventDialog()),
-                  icon: const Icon(Icons.event),
+                  label: 'Delete Animal',
+                  ontap: () {
+                    showDialog(
+                      context: context,
+                      builder: (_) => AlertDialog(
+                        title: const MyText(
+                          'Are you sure?',
+                          fontWeight: FontWeight.bold,
+                        ),
+                        content: MyText(
+                            'This will delete ${animal.tag} completely form the database.'),
+                        actions: [
+                          TextButton(
+                              onPressed: () {
+                                context
+                                    .read<FarmProvider>()
+                                    .removeAnimal(animal);
+                                EasyLoading.showSuccess(
+                                    '${animal.tag} deleted!');
+                                Navigator.popUntil(context, (route) => false);
+                                Navigator.pushNamed(
+                                    context, TabScreen.routeName);
+                              },
+                              child: const MyText('Delete',
+                                  color: AppTheme.maroonColor)),
+                          TextButton(
+                              onPressed: () => Navigator.pop(context),
+                              child: const MyText('Cancel')),
+                        ],
+                      ),
+                    );
+                  },
+                  icon: const Icon(Icons.delete_forever_outlined),
                   color: AppTheme.camelColor,
                   labelColor: AppTheme.navyBlueColor,
                 ),
@@ -67,7 +96,9 @@ class AnimalDetailsScreen extends StatelessWidget {
                         children: [
                           AnimalDetailsBody(animal),
                           AnimalEventsBody(animal.events),
-                          AnimalChildrenDetails([animal, animal]),
+                          AnimalChildrenDetails(context
+                              .read<FarmProvider>()
+                              .getChildren(animal.id, animal.type)),
                         ],
                       ),
                     ),

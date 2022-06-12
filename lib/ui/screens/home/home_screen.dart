@@ -9,62 +9,75 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final name = prefs.user?.name;
+
     return BaseScaffold(
-      body: HomeHawkFABMenu(
-        body: SingleChildScrollView(
-          padding: const EdgeInsets.all(20),
-          child: Column(
-            children: [
-              const Align(
-                alignment: Alignment.centerLeft,
+      body: Consumer<FarmProvider>(
+        builder: (context, provider, child) {
+          final farm = provider.farm;
+          if (name == null || farm == null) {
+            return const Center(
                 child: MyText(
-                  'Hi, Harry!',
-                  fontSize: 30,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              const VerticalSpacing(),
-              MyCard(
-                color: AppTheme.navyBlueColor,
-                padding: const EdgeInsets.all(20),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    const MyText(
-                      'Harry\'s Cattle Farm',
+                    'Error occurred while fetching data.\nPlease login again.'));
+          }
+
+          return HomeHawkFABMenu(
+            body: SingleChildScrollView(
+              padding: const EdgeInsets.all(20),
+              child: Column(
+                children: [
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: MyText(
+                      'Hi, ${name.toUpperCase()}!',
                       fontSize: 30,
-                      fontWeight: FontWeight.w500,
-                      color: AppTheme.whiteColor,
-                      textAlign: TextAlign.center,
+                      fontWeight: FontWeight.bold,
                     ),
-                    const VerticalSpacing(),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: const [
+                  ),
+                  const VerticalSpacing(),
+                  MyCard(
+                    color: AppTheme.navyBlueColor,
+                    padding: const EdgeInsets.all(20),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
                         MyText(
-                          'Total Active Animals:',
-                          fontSize: 20,
+                          farm.name,
+                          fontSize: 30,
                           fontWeight: FontWeight.w500,
                           color: AppTheme.whiteColor,
+                          textAlign: TextAlign.center,
                         ),
-                        MyText(
-                          '30',
-                          fontSize: 20,
-                          fontWeight: FontWeight.w500,
-                          color: AppTheme.whiteColor,
+                        const VerticalSpacing(),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            const MyText(
+                              'Total Active Animals:',
+                              fontSize: 20,
+                              fontWeight: FontWeight.w500,
+                              color: AppTheme.whiteColor,
+                            ),
+                            MyText(
+                              farm.animals.length.toString(),
+                              fontSize: 20,
+                              fontWeight: FontWeight.w500,
+                              color: AppTheme.whiteColor,
+                            ),
+                          ],
                         ),
                       ],
                     ),
-                  ],
-                ),
+                  ),
+                  const VerticalSpacing(),
+                  const FarmDetails(),
+                  const VerticalSpacing(),
+                  Image.asset('assets/images/farm.png', fit: BoxFit.fitWidth),
+                ],
               ),
-              const VerticalSpacing(),
-              const FarmDetails(),
-              const VerticalSpacing(),
-              Image.asset('assets/images/farm.png', fit: BoxFit.fitWidth),
-            ],
-          ),
-        ),
+            ),
+          );
+        },
       ),
     );
   }

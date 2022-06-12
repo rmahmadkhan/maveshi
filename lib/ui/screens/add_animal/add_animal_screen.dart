@@ -1,5 +1,7 @@
 import 'dart:io';
 
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:maveshi/all_screens.dart';
 import 'package:maveshi/all_utils.dart';
 import 'package:maveshi/ui/screens/add_animal/components/date_picker.dart';
 import 'package:maveshi/ui/screens/add_animal/components/image_uploader.dart';
@@ -19,6 +21,7 @@ class _AddAnimalScreenState extends State<AddAnimalScreen> {
   void _imageUploaderCallback(File? file) => image = file;
   final tagController = TextEditingController();
   final nameController = TextEditingController();
+  final typeController = TextEditingController();
   Gender gender = Gender.female;
   void onGenderChangeCallback(Gender? value) =>
       setState(() => {if (value != null) gender = value});
@@ -34,7 +37,6 @@ class _AddAnimalScreenState extends State<AddAnimalScreen> {
   final currentPriceController = TextEditingController();
   final fatherIdController = TextEditingController();
   final motherIdController = TextEditingController();
-  final groupIdController = TextEditingController();
   final notesController = TextEditingController();
 
   @override
@@ -47,13 +49,13 @@ class _AddAnimalScreenState extends State<AddAnimalScreen> {
   void dispose() {
     tagController.dispose();
     nameController.dispose();
+    typeController.dispose();
     breedController.dispose();
     gotFromController.dispose();
     initialPriceController.dispose();
     currentPriceController.dispose();
     fatherIdController.dispose();
     motherIdController.dispose();
-    groupIdController.dispose();
     notesController.dispose();
     super.dispose();
   }
@@ -66,6 +68,7 @@ class _AddAnimalScreenState extends State<AddAnimalScreen> {
       tagController.text = animal.tag;
       nameController.text = animal.name;
       gender = animal.gender;
+      typeController.text = animal.type.value;
       breedController.text = animal.breed;
       dateOfBirth = animal.dateOfBirth;
       obtainedByController.text = animal.obtainedBy.value;
@@ -73,9 +76,8 @@ class _AddAnimalScreenState extends State<AddAnimalScreen> {
       gotFromController.text = animal.gotFrom;
       initialPriceController.text = animal.initialPrice.toString();
       currentPriceController.text = animal.currentPrice.toString();
-      // fatherIdController.text = animal.fatherId;
-      // motherIdController.text = animal.motherId;
-      // groupIdController.text = animal.groupId;
+      fatherIdController.text = animal.fatherId;
+      motherIdController.text = animal.motherId;
       notesController.text = animal.notes;
     }
 
@@ -135,6 +137,18 @@ class _AddAnimalScreenState extends State<AddAnimalScreen> {
                   ),
                 ),
               ],
+            ),
+            const VerticalSpacing(of: 10),
+            MyDropdown(
+              controller: typeController,
+              list: [
+                AnimalType.cow.value,
+                AnimalType.buffalo.value,
+                AnimalType.goat.value,
+                AnimalType.sheep.value
+              ],
+              hint: 'Select',
+              caption: 'Animal Type',
             ),
             const VerticalSpacing(of: 10),
             MyTextField(
@@ -203,8 +217,9 @@ class _AddAnimalScreenState extends State<AddAnimalScreen> {
                   child: MyTextField(
                     controller: initialPriceController,
                     caption: 'Initial Price',
-                    suffixWidget: const MyText(
-                      'PKR',
+                    keyboardType: TextInputType.number,
+                    suffixWidget: MyText(
+                      prefs.farm?.currency ?? '\$',
                       color: AppTheme.lightNavyBlueColor,
                       fontSize: 16,
                     ),
@@ -215,8 +230,9 @@ class _AddAnimalScreenState extends State<AddAnimalScreen> {
                   child: MyTextField(
                     controller: currentPriceController,
                     caption: 'Current Price',
-                    suffixWidget: const MyText(
-                      'PKR',
+                    keyboardType: TextInputType.number,
+                    suffixWidget: MyText(
+                      prefs.farm?.currency ?? '\$',
                       color: AppTheme.lightNavyBlueColor,
                       fontSize: 16,
                     ),
@@ -225,26 +241,11 @@ class _AddAnimalScreenState extends State<AddAnimalScreen> {
               ],
             ),
             const VerticalSpacing(of: 10),
-            MyDropdown(
-              controller: fatherIdController,
-              list: const ['Aplha', 'Beta'],
-              hint: 'Select',
-              caption: 'Father',
-            ),
+            MyTextField(
+                controller: fatherIdController, caption: 'Father\'s Tag'),
             const VerticalSpacing(of: 10),
-            MyDropdown(
-              controller: motherIdController,
-              list: const ['Aplha', 'Beta'],
-              hint: 'Select',
-              caption: 'Mother',
-            ),
-            const VerticalSpacing(of: 10),
-            MyDropdown(
-              controller: groupIdController,
-              list: const ['Aplha', 'Beta'],
-              hint: 'Select',
-              caption: 'Group',
-            ),
+            MyTextField(
+                controller: motherIdController, caption: 'Mother\'s Tag'),
             const VerticalSpacing(of: 10),
             MyTextField(
               controller: notesController,
@@ -252,10 +253,99 @@ class _AddAnimalScreenState extends State<AddAnimalScreen> {
               maxLines: 4,
             ),
             const VerticalSpacing(),
-            MyElevatedButton('Add Animal', onTap: (_) {}),
+            MyElevatedButton('${animal == null ? 'Add' : 'Update'} Animal',
+                onTap: _onTapAddAnimal),
           ],
         ),
       ),
     );
+  }
+
+  void _onTapAddAnimal(BuildContext context) async {
+    EasyLoading.show();
+    final animal = ModalRoute.of(context)?.settings.arguments as Animal?;
+    final tag = tagController.text.trim();
+
+    if (tag.isEmpty) {
+      EasyLoading.showError('Tag is required!');
+    } else if (animal == null &&
+        prefs.farm?.animals
+                .firstWhereOrNull((a) => a.id == tag.toLowerCase()) !=
+            null) {
+      EasyLoading.showInfo('Animal with same tag already exists!');
+    } else {
+      final farmId = prefs.user?.farmId;
+      if (farmId != null) {
+        final imagePath = image != null ? await _uploadFile(farmId, tag) : null;
+
+        final updatedAnimal = Animal(
+          id: tag.toLowerCase(),
+          tag: tag,
+          name: nameController.text,
+          imagePath: imagePath ?? animal?.imagePath ?? '',
+          type: _getType(typeController.text),
+          gender: gender,
+          breed: breedController.text,
+          dateOfBirth: dateOfBirth,
+          age: dateOfBirth.difference(DateTime.now()).inDays ~/ 356,
+          obtainedBy: _getObtainedBy(obtainedByController.text),
+          farmJoiningDate: farmJoiningDate,
+          gotFrom: gotFromController.text,
+          initialPrice: double.tryParse(initialPriceController.text) ?? 0,
+          currentPrice: double.tryParse(currentPriceController.text) ?? 0,
+          fatherId: fatherIdController.text,
+          motherId: motherIdController.text,
+          notes: notesController.text,
+          events: [],
+        );
+
+        if (!mounted) return;
+        await context.read<FarmProvider>().addAnimal(updatedAnimal);
+        EasyLoading.showSuccess(
+            'Animal ${animal == null ? 'added' : 'updated'}!');
+
+        if (!mounted) return;
+        Navigator.popUntil(context, (route) => false);
+        Navigator.pushNamed(context, TabScreen.routeName);
+      }
+    }
+    EasyLoading.dismiss();
+  }
+
+  Future<String> _uploadFile(String farmId, String animalTag) async {
+    final imageFile =
+        FirebaseStorage.instance.ref().child('farms/$farmId/$animalTag.jpg');
+
+    final snapshot = await imageFile.putFile(image!);
+    final url = await snapshot.ref.getDownloadURL();
+    return url;
+  }
+
+  static AnimalType _getType(String type) {
+    switch (type) {
+      case 'Cow':
+        return AnimalType.cow;
+      case 'Buffalo':
+        return AnimalType.buffalo;
+      case 'Goat':
+        return AnimalType.goat;
+      case 'Sheep':
+        return AnimalType.sheep;
+      default:
+        return AnimalType.cow;
+    }
+  }
+
+  static AnimalObtainedBy _getObtainedBy(String by) {
+    switch (by) {
+      case 'Birth':
+        return AnimalObtainedBy.birth;
+      case 'Purchase':
+        return AnimalObtainedBy.purchase;
+      case 'Gift':
+        return AnimalObtainedBy.gift;
+      default:
+        return AnimalObtainedBy.birth;
+    }
   }
 }
