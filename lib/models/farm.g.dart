@@ -14,6 +14,9 @@ Farm _$FarmFromJson(Map<String, dynamic> json) => Farm(
       animals: (json['animals'] as List<dynamic>)
           .map((e) => Animal.fromJson(e as Map<String, dynamic>))
           .toList(),
+      milkingDetails: (json['milkingDetails'] as List<dynamic>)
+          .map((e) => Milk.fromJson(e as Map<String, dynamic>))
+          .toList(),
     );
 
 Map<String, dynamic> _$FarmToJson(Farm instance) => <String, dynamic>{
@@ -22,4 +25,5 @@ Map<String, dynamic> _$FarmToJson(Farm instance) => <String, dynamic>{
       'currency': instance.currency,
       'owner': instance.owner,
       'animals': instance.animals.map((e) => e.toJson()).toList(),
+      'milkingDetails': instance.milkingDetails.map((e) => e.toJson()).toList(),
     };
