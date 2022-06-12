@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:collection/collection.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:maveshi/all_screens.dart';
 import 'package:maveshi/all_utils.dart';
@@ -270,19 +271,23 @@ class _AddAnimalScreenState extends State<AddAnimalScreen> {
   }
 
   void _onTapAddAnimal(BuildContext context) async {
+    EasyLoading.show();
     final animal = ModalRoute.of(context)?.settings.arguments as Animal?;
-    final tag = tagController.text;
+    final tag = tagController.text.trim();
 
     if (tag.isEmpty) {
       EasyLoading.showError('Tag is required!');
+    } else if (prefs.farm?.animals
+            .firstWhereOrNull((a) => a.id == tag.toLowerCase()) !=
+        null) {
+      EasyLoading.showInfo('Animal with same tag already exists!');
     } else {
       final farmId = prefs.user?.farmId;
       if (farmId != null) {
-        EasyLoading.show();
         final imagePath = image != null ? await _uploadFile(farmId, tag) : null;
 
         final updatedAnimal = Animal(
-          id: tag,
+          id: tag.toLowerCase(),
           tag: tag,
           name: nameController.text,
           imagePath: imagePath ?? animal?.imagePath ?? '',
@@ -304,7 +309,6 @@ class _AddAnimalScreenState extends State<AddAnimalScreen> {
 
         if (!mounted) return;
         await context.read<FarmProvider>().addAnimal(updatedAnimal);
-        EasyLoading.dismiss();
         EasyLoading.showSuccess(
             'Animal ${animal == null ? 'added' : 'updated'}!');
 
@@ -313,6 +317,7 @@ class _AddAnimalScreenState extends State<AddAnimalScreen> {
         Navigator.pushNamed(context, TabScreen.routeName);
       }
     }
+    EasyLoading.dismiss();
   }
 
   Future<String> _uploadFile(String farmId, String animalTag) async {
