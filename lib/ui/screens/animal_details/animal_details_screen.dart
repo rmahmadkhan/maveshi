@@ -1,7 +1,6 @@
 import 'package:hawk_fab_menu/hawk_fab_menu.dart';
 import 'package:maveshi/all_screens.dart';
 import 'package:maveshi/all_utils.dart';
-import 'package:maveshi/ui/screens/animal_details/components/add_event_dialog.dart';
 import 'package:maveshi/ui/screens/animal_details/components/animal_children_details.dart';
 import 'package:maveshi/ui/screens/animal_details/components/animal_details_body.dart';
 import 'package:maveshi/ui/screens/animal_details/components/animal_events_body.dart';
@@ -31,7 +30,8 @@ class AnimalDetailsScreen extends StatelessWidget {
       body: animal == null
           ? const Center(child: MyText('No animal details found'))
           : HawkFabMenu(
-              icon: AnimatedIcons.menu_close,
+              openIcon: Icons.edit,
+              closeIcon: Icons.close,
               fabColor: AppTheme.orangeColor,
               iconColor: AppTheme.whiteColor,
               items: [
@@ -44,14 +44,14 @@ class AnimalDetailsScreen extends StatelessWidget {
                   color: AppTheme.camelColor,
                   labelColor: AppTheme.navyBlueColor,
                 ),
-                HawkFabMenuItem(
-                  label: 'Add Event',
-                  ontap: () => showDialog(
-                      context: context, builder: (_) => const AddEventDialog()),
-                  icon: const Icon(Icons.event),
-                  color: AppTheme.camelColor,
-                  labelColor: AppTheme.navyBlueColor,
-                ),
+                // HawkFabMenuItem(
+                //   label: 'Add Event',
+                //   ontap: () => showDialog(
+                //       context: context, builder: (_) => const AddEventDialog()),
+                //   icon: const Icon(Icons.event),
+                //   color: AppTheme.camelColor,
+                //   labelColor: AppTheme.navyBlueColor,
+                // ),
               ],
               body: SingleChildScrollView(
                 child: Column(
