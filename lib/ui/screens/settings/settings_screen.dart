@@ -79,6 +79,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
   }
 
   void _onTapUpdateButton(BuildContext context) async {
+    final FocusScopeNode currentFocus = FocusScope.of(context);
+    if (!currentFocus.hasPrimaryFocus) currentFocus.unfocus();
+
     final user = prefs.user;
     if (user?.email == null) {
       EasyLoading.showError('No account logged in');
