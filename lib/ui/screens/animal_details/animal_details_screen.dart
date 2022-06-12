@@ -44,14 +44,43 @@ class AnimalDetailsScreen extends StatelessWidget {
                   color: AppTheme.camelColor,
                   labelColor: AppTheme.navyBlueColor,
                 ),
-                // HawkFabMenuItem(
-                //   label: 'Add Event',
-                //   ontap: () => showDialog(
-                //       context: context, builder: (_) => const AddEventDialog()),
-                //   icon: const Icon(Icons.event),
-                //   color: AppTheme.camelColor,
-                //   labelColor: AppTheme.navyBlueColor,
-                // ),
+                HawkFabMenuItem(
+                  label: 'Delete Animal',
+                  ontap: () {
+                    showDialog(
+                      context: context,
+                      builder: (_) => AlertDialog(
+                        title: const MyText(
+                          'Are you sure?',
+                          fontWeight: FontWeight.bold,
+                        ),
+                        content: MyText(
+                            'This will delete ${animal.tag} completely form the database.'),
+                        actions: [
+                          TextButton(
+                              onPressed: () {
+                                context
+                                    .read<FarmProvider>()
+                                    .removeAnimal(animal);
+                                EasyLoading.showSuccess(
+                                    '${animal.tag} deleted!');
+                                Navigator.popUntil(context, (route) => false);
+                                Navigator.pushNamed(
+                                    context, TabScreen.routeName);
+                              },
+                              child: const MyText('Delete',
+                                  color: AppTheme.maroonColor)),
+                          TextButton(
+                              onPressed: () => Navigator.pop(context),
+                              child: const MyText('Cancel')),
+                        ],
+                      ),
+                    );
+                  },
+                  icon: const Icon(Icons.delete_forever_outlined),
+                  color: AppTheme.camelColor,
+                  labelColor: AppTheme.navyBlueColor,
+                ),
               ],
               body: SingleChildScrollView(
                 child: Column(

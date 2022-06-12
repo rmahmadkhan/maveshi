@@ -29,6 +29,16 @@ class FarmProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  Future<void> removeAnimal(Animal animal) async {
+    if (farm == null) return;
+
+    farm!.animals.removeWhere((a) => a.id == animal.id);
+    await prefs.setFarm(farm!);
+    await farmRepository.add(farm!);
+    filterAll();
+    notifyListeners();
+  }
+
   void filterAll() {
     cows = filterAnimalsOnType(farm?.animals ?? [], AnimalType.cow);
     buffaloes = filterAnimalsOnType(farm?.animals ?? [], AnimalType.buffalo);
