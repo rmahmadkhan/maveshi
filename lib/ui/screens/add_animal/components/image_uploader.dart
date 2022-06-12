@@ -49,7 +49,7 @@ class _ImageUploaderState extends State<ImageUploader> {
   Widget _buildPlaceholder() {
     if (widget.imagePath != null && widget.imagePath!.isNotEmpty) {
       return ClipRRect(
-        borderRadius: BorderRadius.circular(20),
+        borderRadius: BorderRadius.circular(5),
         child: Image.network(widget.imagePath!, fit: BoxFit.cover),
       );
     }
