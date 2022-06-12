@@ -1,6 +1,5 @@
 import 'dart:io';
 
-import 'package:collection/collection.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:maveshi/all_screens.dart';
 import 'package:maveshi/all_utils.dart';
@@ -77,8 +76,8 @@ class _AddAnimalScreenState extends State<AddAnimalScreen> {
       gotFromController.text = animal.gotFrom;
       initialPriceController.text = animal.initialPrice.toString();
       currentPriceController.text = animal.currentPrice.toString();
-      // fatherIdController.text = animal.fatherId;
-      // motherIdController.text = animal.motherId;
+      fatherIdController.text = animal.fatherId;
+      motherIdController.text = animal.motherId;
       notesController.text = animal.notes;
     }
 
@@ -242,19 +241,11 @@ class _AddAnimalScreenState extends State<AddAnimalScreen> {
               ],
             ),
             const VerticalSpacing(of: 10),
-            MyDropdown(
-              controller: fatherIdController,
-              list: const ['Aplha', 'Beta'],
-              hint: 'Select',
-              caption: 'Father',
-            ),
+            MyTextField(
+                controller: fatherIdController, caption: 'Father\'s Tag'),
             const VerticalSpacing(of: 10),
-            MyDropdown(
-              controller: motherIdController,
-              list: const ['Aplha', 'Beta'],
-              hint: 'Select',
-              caption: 'Mother',
-            ),
+            MyTextField(
+                controller: motherIdController, caption: 'Mother\'s Tag'),
             const VerticalSpacing(of: 10),
             MyTextField(
               controller: notesController,
@@ -277,9 +268,10 @@ class _AddAnimalScreenState extends State<AddAnimalScreen> {
 
     if (tag.isEmpty) {
       EasyLoading.showError('Tag is required!');
-    } else if (prefs.farm?.animals
-            .firstWhereOrNull((a) => a.id == tag.toLowerCase()) !=
-        null) {
+    } else if (animal == null &&
+        prefs.farm?.animals
+                .firstWhereOrNull((a) => a.id == tag.toLowerCase()) !=
+            null) {
       EasyLoading.showInfo('Animal with same tag already exists!');
     } else {
       final farmId = prefs.user?.farmId;
@@ -301,8 +293,8 @@ class _AddAnimalScreenState extends State<AddAnimalScreen> {
           gotFrom: gotFromController.text,
           initialPrice: double.tryParse(initialPriceController.text) ?? 0,
           currentPrice: double.tryParse(currentPriceController.text) ?? 0,
-          fatherId: 'fatherId',
-          motherId: 'motherId',
+          fatherId: fatherIdController.text,
+          motherId: motherIdController.text,
           notes: notesController.text,
           events: [],
         );

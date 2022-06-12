@@ -1,3 +1,4 @@
+export 'package:collection/collection.dart';
 export 'package:flutter/material.dart';
 export 'package:flutter_easyloading/flutter_easyloading.dart';
 export 'package:font_awesome_flutter/font_awesome_flutter.dart';
