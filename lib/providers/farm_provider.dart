@@ -13,30 +13,31 @@ class FarmProvider extends ChangeNotifier {
 
   Future<void> fetchFarmFromDatabase(String farmId) async {
     farm = await farmRepository.get(farmId);
-    if (farm != null) {
-      prefs.setFarm(farm!);
-    }
+    if (farm != null) await prefs.setFarm(farm!);
+    filterAll();
     notifyListeners();
   }
 
-  void addAnimal(Animal animal) {
+  Future<void> addAnimal(Animal animal) async {
     if (farm == null) return;
 
+    farm!.animals.removeWhere((a) => a.id == animal.id);
     farm!.animals.add(animal);
-    prefs.setFarm(farm!);
-    farmRepository.add(farm!);
+    await prefs.setFarm(farm!);
+    await farmRepository.add(farm!);
     filterAll();
     notifyListeners();
   }
 
   void filterAll() {
-    cows = filterAnimals(farm?.animals ?? [], AnimalType.cow);
-    buffaloes = filterAnimals(farm?.animals ?? [], AnimalType.buffalo);
-    goats = filterAnimals(farm?.animals ?? [], AnimalType.goat);
-    sheeps = filterAnimals(farm?.animals ?? [], AnimalType.sheep);
+    cows = filterAnimalsOnType(farm?.animals ?? [], AnimalType.cow);
+    buffaloes = filterAnimalsOnType(farm?.animals ?? [], AnimalType.buffalo);
+    goats = filterAnimalsOnType(farm?.animals ?? [], AnimalType.goat);
+    sheeps = filterAnimalsOnType(farm?.animals ?? [], AnimalType.sheep);
   }
 
-  static List<Animal> filterAnimals(List<Animal> animalList, AnimalType type) {
+  static List<Animal> filterAnimalsOnType(
+      List<Animal> animalList, AnimalType type) {
     final List<Animal> list = [];
     for (Animal animal in animalList) {
       if (animal.type == type) list.add(animal);
@@ -51,5 +52,26 @@ class FarmProvider extends ChangeNotifier {
       if (animal.gender == gender) list.add(animal);
     }
     return list;
+  }
+
+  List<Animal> getChildren(String id, AnimalType type) {
+    switch (type) {
+      case AnimalType.cow:
+        return cows
+            .where((animal) => animal.motherId == id || animal.fatherId == id)
+            .toList();
+      case AnimalType.buffalo:
+        return buffaloes
+            .where((animal) => animal.motherId == id || animal.fatherId == id)
+            .toList();
+      case AnimalType.goat:
+        return goats
+            .where((animal) => animal.motherId == id || animal.fatherId == id)
+            .toList();
+      case AnimalType.sheep:
+        return sheeps
+            .where((animal) => animal.motherId == id || animal.fatherId == id)
+            .toList();
+    }
   }
 }

@@ -67,7 +67,9 @@ class AnimalDetailsScreen extends StatelessWidget {
                         children: [
                           AnimalDetailsBody(animal),
                           AnimalEventsBody(animal.events),
-                          AnimalChildrenDetails([animal, animal]),
+                          AnimalChildrenDetails(context
+                              .read<FarmProvider>()
+                              .getChildren(animal.id, animal.type)),
                         ],
                       ),
                     ),
