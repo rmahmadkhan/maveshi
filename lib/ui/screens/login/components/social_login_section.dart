@@ -65,13 +65,16 @@ class SocialLoginSection extends StatelessWidget {
           email: googleUser.email,
           imagePath: googleUser.photoUrl,
         );
-        userRepository.add(newUser);
-        prefs.setUser(newUser);
+        await userRepository.add(newUser);
+        await prefs.setUser(newUser);
         EasyLoading.dismiss();
 
         showDialog(context: context, builder: (_) => const SetupFarmDialog());
       } else {
-        prefs.setUser(dbUser);
+        await prefs.setUser(dbUser);
+        await context
+            .read<FarmProvider>()
+            .fetchFarmFromDatabase(dbUser.farmId!);
         EasyLoading.dismiss();
 
         Navigator.popUntil(context, (route) => false);
