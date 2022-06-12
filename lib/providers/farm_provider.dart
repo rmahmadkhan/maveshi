@@ -11,6 +11,14 @@ class FarmProvider extends ChangeNotifier {
     filterAll();
   }
 
+  Future<void> updateFarmName(String name) async {
+    if (farm != null) {
+      await farmRepository.update(farm!.id, {'name': name});
+      await fetchFarmFromDatabase(farm!.id);
+      notifyListeners();
+    }
+  }
+
   Future<void> fetchFarmFromDatabase(String farmId) async {
     farm = await farmRepository.get(farmId);
     if (farm != null) await prefs.setFarm(farm!);
