@@ -73,10 +73,9 @@ class _RegisterFormState extends State<RegisterForm> {
 
         final User? user = auth.currentUser;
         if (user != null) {
-          // if (!user.emailVerified) {
-          //   user.sendEmailVerification();
-          // }
-          // final fcmToken = await FirebaseMessaging.instance.getToken();
+          if (!user.emailVerified) {
+            user.sendEmailVerification();
+          }
           final localUser = LocalUser(
             name: nameController.text,
             email: emailController.text,

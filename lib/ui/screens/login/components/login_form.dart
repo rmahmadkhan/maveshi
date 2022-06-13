@@ -67,6 +67,9 @@ class _LoginFormState extends State<LoginForm> {
 
       final email = userCredentials.user?.email;
       if (email != null) {
+        if (!userCredentials.user!.emailVerified) {
+          userCredentials.user!.sendEmailVerification();
+        }
         final user = await userRepository.get(email);
         if (user != null) {
           await prefs.setUser(user);
