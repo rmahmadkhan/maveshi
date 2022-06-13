@@ -12,8 +12,6 @@ class GroupViewScreen extends StatefulWidget {
 }
 
 class _GroupViewScreenState extends State<GroupViewScreen> {
-  final genderController = TextEditingController();
-
   @override
   Widget build(BuildContext context) {
     final animals = ModalRoute.of(context)?.settings.arguments as List<Animal>?;
@@ -32,27 +30,15 @@ class _GroupViewScreenState extends State<GroupViewScreen> {
       ),
       body: animals == null || animals.isEmpty
           ? const Center(child: MyText('No animals found\nAdd animals'))
-          : Padding(
+          : ListView.separated(
               padding: const EdgeInsets.all(20),
-              child: Column(
-                children: [
-                  MyDropdown(
-                    controller: genderController,
-                    list: ['All', Gender.female.value, Gender.male.value],
-                    hint: 'All',
-                  ),
-                  const VerticalSpacing(),
-                  ListView.separated(
-                    physics: const NeverScrollableScrollPhysics(),
-                    shrinkWrap: true,
-                    itemBuilder: (context, index) =>
-                        AnimalCard(animals[index], height: 50),
-                    separatorBuilder: (context, index) =>
-                        const VerticalSpacing(of: 10),
-                    itemCount: animals.length,
-                  ),
-                ],
-              ),
+              physics: const NeverScrollableScrollPhysics(),
+              shrinkWrap: true,
+              itemBuilder: (context, index) =>
+                  AnimalCard(animals[index], height: 50),
+              separatorBuilder: (context, index) =>
+                  const VerticalSpacing(of: 10),
+              itemCount: animals.length,
             ),
     );
   }

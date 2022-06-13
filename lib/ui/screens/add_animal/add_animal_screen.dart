@@ -287,7 +287,7 @@ class _AddAnimalScreenState extends State<AddAnimalScreen> {
           gender: gender,
           breed: breedController.text,
           dateOfBirth: dateOfBirth,
-          age: dateOfBirth.difference(DateTime.now()).inDays ~/ 356,
+          age: DateTime.now().difference(dateOfBirth).inDays ~/ 356,
           obtainedBy: _getObtainedBy(obtainedByController.text),
           farmJoiningDate: farmJoiningDate,
           gotFrom: gotFromController.text,
