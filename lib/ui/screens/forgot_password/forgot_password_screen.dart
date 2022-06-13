@@ -9,6 +9,11 @@ class ForgotPasswordScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BaseScaffold(
+      appBar: AppBar(
+        backgroundColor: AppTheme.whiteColor,
+        elevation: 0,
+        iconTheme: const IconThemeData(color: AppTheme.navyBlueColor),
+      ),
       body: Padding(
         padding: const EdgeInsets.all(20),
         child: Column(
@@ -18,9 +23,10 @@ class ForgotPasswordScreen extends StatelessWidget {
                 fontSize: 30, fontWeight: FontWeight.bold),
             VerticalSpacing(of: 10),
             MyText(
-              'We\'ll be sending you details to reset your password',
+              'We\'ll be sending you details to reset your password!',
               fontSize: 20,
               color: AppTheme.greyColor,
+              textAlign: TextAlign.center,
             ),
             VerticalSpacing(of: 50),
             ForgotPasswordForm(),

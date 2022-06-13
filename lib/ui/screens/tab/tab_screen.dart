@@ -43,12 +43,9 @@ class _TabScreenState extends State<TabScreen> with WidgetsBindingObserver {
               ]
             : null,
       ),
-      body: SafeArea(
-        top: false,
-        child: IndexedStack(
-          index: _selectedIndex,
-          children: tabWidgets,
-        ),
+      body: IndexedStack(
+        index: _selectedIndex,
+        children: tabWidgets,
       ),
       bottomNavigationBar: BottomNavBar(
         onItemTapped: _onItemTapped,
