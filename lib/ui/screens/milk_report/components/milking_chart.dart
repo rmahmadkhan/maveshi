@@ -139,7 +139,8 @@ class _MilkChartState extends State<MilkingChart> {
                 enableAxisAnimation: true,
                 series: <ChartSeries<Milk, DateTime>>[
                   LineSeries<Milk, DateTime>(
-                    dataSource: filteredMilkings,
+                    dataSource: filteredMilkings.sorted(
+                        (a, b) => a.dateTime.isBefore(b.dateTime) ? 1 : 0),
                     xValueMapper: (Milk data, _) => data.dateTime,
                     yValueMapper: (Milk data, _) => data.liters,
                     name: 'Milk',
